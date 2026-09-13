@@ -1,0 +1,1743 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* New assistant messages arrive without delaying their readable content. */
+@keyframes chat-message-arrival {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.chat-message-arrival {
+  animation: chat-message-arrival 160ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-message-arrival {
+    animation: none;
+  }
+}
+
+/* ── Print / PDF export ─────────────────────────────────────────────── */
+@media print {
+  /* Page setup — A4 with comfortable margins, always light */
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm;
+  }
+
+  /* Force light colour-scheme regardless of user dark/light preference */
+  html, body {
+    color-scheme: light !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    padding-top: 0 !important;
+    font-size: 10pt !important;
+  }
+
+  /* ── Hide all application chrome ────────────────────────────────── */
+  /* Everything explicitly tagged as non-printable */
+  [data-print-hide="true"] {
+    display: none !important;
+  }
+  /* TopBar / sidebar are tagged with data-print-hide in their TSX;
+     belt-and-suspenders selector in case the attr is ever removed */
+  .fixed.top-0 {
+    display: none !important;
+  }
+
+  /* ── Reset Genius page flex containers ──────────────────────────── */
+  /* The three-panel shell uses flex + fixed vh height + overflow hidden.
+     In print we collapse all of that so only <main> flows naturally. */
+  .modern-4k-background {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  /* The inner three-panel row */
+  .modern-4k-background > .flex.min-h-0.flex-1 {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* The center <main> worksheet column must fill full width */
+  .modern-4k-background main {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    flex: none !important;
+  }
+
+  /* ── Worksheet layout ────────────────────────────────────────────── */
+  /* Worksheet container: A4 usable width, comfortable padding */
+  .worksheet-print-root {
+    max-width: 170mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  /* Keep a report chapter together when it fits. If a chapter is taller than
+     one page, the browser can still break it at the guarded row/block
+     boundaries below instead of orphaning its heading. */
+  .worksheet-section-card {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    margin-bottom: 12pt !important;
+  }
+
+  /* Calculation Steps is normally taller than one page. Start it as a fresh
+     report chapter, then allow the table to continue across pages between
+     complete step rows. Keeping this whole section together can cause Chromium
+     to omit its oversized contents from the PDF. */
+  #section-steps {
+    break-before: page !important;
+    page-break-before: always !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+  #section-steps .worksheet-section-body,
+  #section-steps .worksheet-table-scroll,
+  #section-steps table,
+  #section-steps tbody {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  /* Section header row */
+  .worksheet-section-header {
+    background: #f3f4f6 !important;
+    border-bottom: 1px solid #d1d5db !important;
+    color: #374151 !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Section body */
+  .worksheet-section-body {
+    color: #111111 !important;
+  }
+
+  /* Keep table rows together */
+  tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Screen rows begin at opacity: 0 and animate into view. Print/PDF can
+     snapshot that initial frame, leaving only the table borders visible.
+     Reports must always capture the completed, fully visible state. */
+  .result-row-reveal,
+  .req-row-reveal,
+  .rec-section-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Project header card */
+  .worksheet-header-card {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    margin-bottom: 12pt !important;
+    break-after: avoid;
+  }
+
+  /* Overflow-x scroll wrappers should reflow in print */
+  .worksheet-table-scroll {
+    overflow: visible !important;
+    width: 100% !important;
+  }
+
+  /* Tables should fill the available width */
+  table {
+    width: 100% !important;
+    font-size: 9pt !important;
+  }
+
+  /* ── Force light colours on dark-mode elements ───────────────────── */
+  .worksheet-print-root,
+  .worksheet-print-root * {
+    color: #111111 !important;
+  }
+  /* KaTeX builds fractions from overlapping nested spans. Giving every span
+     an inherited white background hides lower layers such as denominators. */
+  .worksheet-print-root * {
+    background-color: transparent !important;
+  }
+
+  /* Re-establish white backgrounds on cards */
+  .worksheet-section-card,
+  .worksheet-header-card {
+    background-color: #ffffff !important;
+  }
+  .worksheet-section-header {
+    background-color: #f3f4f6 !important;
+  }
+
+  /* ── Step notes: always expanded in print ───────────────────────── */
+  /* Toggle button is screen-only; notes content is always shown */
+  .step-notes-toggle {
+    display: none !important;
+  }
+  .step-notes-content {
+    display: block !important;
+  }
+
+  /* The screen view can use a compact single equation when it fits. PDF is
+     fixed-width, so print the formula and the substituted working as two
+     separate blocks. This avoids relying on an invisible width-measurement
+     node during the browser's beforeprint phase. */
+  .step-math-screen,
+  .step-math-measure {
+    display: none !important;
+  }
+  .step-math-print {
+    display: block !important;
+    max-width: 100% !important;
+  }
+  .step-math-print .katex-block,
+  .step-math-print .katex-display {
+    max-width: 100% !important;
+    margin: 3pt 0 !important;
+    padding: 0 !important;
+  }
+  .step-math-print .katex {
+    font-size: var(--step-print-math-size, 0.88em) !important;
+  }
+
+  /* The right-hand result repeats the answer already included at the end of
+     the print equation. Reclaim that width for complete, readable formulas. */
+  .worksheet-table-scroll--wide col:last-child {
+    width: 0 !important;
+  }
+  .worksheet-table-scroll--wide th:last-child,
+  .worksheet-table-scroll--wide td:last-child {
+    display: none !important;
+  }
+  .worksheet-table-scroll--wide th:nth-child(2),
+  .worksheet-table-scroll--wide td:nth-child(2) {
+    padding-right: 0 !important;
+  }
+
+  /* ── KaTeX formula overflow fixes ───────────────────────────────── */
+  /* KaTeX uses overflow:hidden on internal elements (vlist, strut, etc.)
+     to clip baseline-alignment struts. In print this cuts formulas both
+     horizontally AND vertically. Force every KaTeX element to overflow
+     visibly so nothing is clipped regardless of depth. */
+  .katex,
+  .katex *,
+  .katex-display,
+  .katex-display *,
+  .katex-block,
+  .katex-block * {
+    overflow: visible !important;
+    color: #111111 !important;
+  }
+
+  /* The step formula cell applies [&_.katex-block]:overflow-x-auto via
+     Tailwind inline variant — override it at higher specificity */
+  .step-formula-cell .katex-block,
+  .step-formula-cell .katex-block * {
+    overflow: visible !important;
+  }
+
+  /* The formula column gets the printable page width; do not retain screen
+     scroll dimensions or fixed viewport constraints when exporting. */
+  .worksheet-print-root .step-formula-cell,
+  .worksheet-print-root .step-math-layout {
+    min-width: 0 !important;
+    width: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+  }
+
+  /* Worksheet table scroll wrappers — must also be visible so
+     formulas in step rows are not clipped at the table edge */
+  .worksheet-table-scroll,
+  .worksheet-table-scroll--wide {
+    overflow: visible !important;
+  }
+
+  /* td/th must not clip formulas that extend beyond row height */
+  td, th {
+    overflow: visible !important;
+  }
+
+  /* ── Aligned input / legend tables ─────────────────────────────── */
+  /* Keep the shared symbol guide, while allowing descriptive content to
+     wrap within A4 rather than retaining its screen-sized scroll width. */
+  .worksheet-aligned-table {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .worksheet-parameter-label {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  /* Recharts SVG — should render fine; ensure not clipped */
+  .recharts-wrapper {
+    break-inside: avoid;
+    overflow: visible !important;
+  }
+
+  /* ── Print-only header ───────────────────────────────────────────── */
+  /* Shown only when printing */
+  .print-only-header {
+    display: block !important;
+  }
+
+  /* Report context is included once in the PDF; form controls stay screen-only. */
+  .calculation-details-content {
+    display: none !important;
+  }
+  .print-calculation-details {
+    display: block !important;
+    margin: -4pt 0 12pt !important;
+    padding: 7pt 9pt !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    color: #374151 !important;
+    font-size: 9pt !important;
+    line-height: 1.45 !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-calculation-details p {
+    margin: 0 0 3pt !important;
+  }
+  .print-calculation-details p:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ── Input Values / Symbol Legend shared column contract ─────────────── */
+/* Both tables use this fixed, compact symbol column. Parameter and Meaning
+   consequently begin on the exact same guide, even when one table contains
+   a longer symbol than the other. */
+.worksheet-aligned-table {
+  --worksheet-symbol-column-width: 7rem;
+}
+
+.worksheet-aligned-table .worksheet-symbol-column {
+  width: var(--worksheet-symbol-column-width);
+}
+
+/* Input labels use the remaining table width after the symbol and editable
+   control columns are reserved. */
+.worksheet-inputs-table .worksheet-parameter-column {
+  width: auto;
+}
+
+/* Inputs must retain their control, unit, and source badge space. */
+.worksheet-inputs-table .worksheet-value-column {
+  width: 10rem;
+  white-space: nowrap;
+}
+
+.worksheet-inputs-table .worksheet-source-column,
+.worksheet-symbol-legend .worksheet-legend-unit-column {
+  width: 4rem;
+  white-space: nowrap;
+}
+
+/* Long labels wrap within their reserved column instead of changing the
+   shared Parameter/Meaning guide or crowding editable value controls. */
+.worksheet-inputs-table .worksheet-parameter-label {
+  overflow-wrap: anywhere;
+}
+
+/* On phones, value entry takes priority over a wide shared guide. Keep all
+   four Input Values columns in the viewport, then restore the desktop guide
+   at the small-screen breakpoint. */
+@media (max-width: 639px) {
+  .worksheet-aligned-table {
+    --worksheet-symbol-column-width: 3.25rem;
+  }
+
+  .worksheet-inputs-table .worksheet-value-column {
+    width: 7.5rem;
+  }
+
+  .worksheet-inputs-table .worksheet-source-column {
+    width: 2rem;
+  }
+
+  .worksheet-symbol-legend .worksheet-legend-unit-column {
+    width: 3.5rem;
+  }
+}
+
+/* ── Requirements panel: travelling border beam ────────────────────── */
+
+/* Register the angle as animatable so conic-gradient can transition it */
+@property --req-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-travel {
+  to { --req-border-angle: 360deg; }
+}
+
+/* Subtle ambient glow that pulses while the beam travels */
+@keyframes req-ambient {
+  0%, 100% { box-shadow: 0 0 10px 2px rgba(59,130,246,0.18), 0 0 24px 6px rgba(59,130,246,0.08); }
+  50%       { box-shadow: 0 0 18px 4px rgba(96,165,250,0.30), 0 0 38px 10px rgba(96,165,250,0.12); }
+}
+
+.requirements-loading {
+  position: relative;
+  isolation: isolate;
+  border-color: transparent !important;
+  animation: req-ambient 2.4s ease-in-out infinite !important;
+}
+
+/* Travelling beam via ::before  */
+.requirements-loading::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  /* Comet: bright tip + fading tail occupying ~110° of the circle */
+  background: conic-gradient(
+    from var(--req-border-angle),
+    transparent           0deg,
+    transparent         250deg,
+    rgba(59,130,246,0.15) 270deg,
+    rgba(96,165,250,0.55) 295deg,
+    rgba(147,197,253,0.9) 318deg,
+    rgba(255,255,255,1)   336deg,
+    rgba(147,197,253,0.9) 346deg,
+    rgba(96,165,250,0.45) 354deg,
+    transparent           360deg
+  );
+  /* Punch a hole in the centre so only the 1.5 px border strip is visible */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-travel 2.4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+/* Skeleton dot particle animation */
+@keyframes dot-pop {
+  0%, 100% { opacity: 0.12; transform: scale(0.55); }
+  50%       { opacity: 1;    transform: scale(1.15); }
+}
+
+.skeleton-dot {
+  border-radius: 9999px;
+  animation: dot-pop 1.3s ease-in-out infinite;
+}
+
+.skeleton-dot-param {
+  background-color: rgba(156, 163, 175, 0.9);
+}
+
+.dark .skeleton-dot-param {
+  background-color: rgba(107, 114, 128, 0.9);
+}
+
+.skeleton-dot-value {
+  background-color: rgba(96, 165, 250, 0.75);
+}
+
+.dark .skeleton-dot-value {
+  background-color: rgba(96, 165, 250, 0.55);
+}
+
+.skeleton-dot-type {
+  background-color: rgba(167, 139, 250, 0.8);
+}
+
+.dark .skeleton-dot-type {
+  background-color: rgba(167, 139, 250, 0.6);
+}
+
+/* Blob Animation Delay Utilities */
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Wave Animation for Thinking Indicator */
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Shimmer Animation for Text */
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* Scroll Animation Styles */
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes travelRight {
+  0% { transform: translateX(-100vw); opacity: 0; }
+  20% { opacity: 0.08; }
+  50% { transform: translateX(0); opacity: 0.12; }
+  80% { opacity: 0.08; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+
+@keyframes travelDown {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  20% { opacity: 0.08; }
+  50% { transform: translateY(0); opacity: 0.12; }
+  80% { opacity: 0.08; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes travelDiagonal {
+  0% { 
+    transform: translate(-10px, -10px) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(calc(100vw - 10px), calc(100vh - 10px)) scale(1);
+  }
+  100% { 
+    transform: translate(calc(100vw), calc(100vh)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes travelDiagonalReverse {
+  0% { 
+    transform: translate(10px, -10px) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(calc(-100vw + 10px), calc(100vh - 10px)) scale(1);
+  }
+  100% { 
+    transform: translate(-100vw, calc(100vh)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+
+
+@keyframes ai-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.4), 0 0 12px rgba(168, 85, 247, 0.1);
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.6), 0 0 20px rgba(168, 85, 247, 0.2);
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+:root .animate-ai-glow {
+  animation: ai-glow 2.5s ease-in-out infinite;
+}
+
+.dark .animate-ai-glow {
+  animation: ai-glow-dark 2s ease-in-out infinite;
+}
+
+@keyframes ai-glow-dark {
+  0%, 100% {
+    box-shadow: 0 0 12px 2px rgba(168, 85, 247, 0.5), 0 0 16px 4px rgba(168, 85, 247, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px 6px rgba(168, 85, 247, 0.7), 0 0 28px 10px rgba(168, 85, 247, 0.4);
+    transform: scale(1.15);
+  }
+}
+
+@keyframes pulse-simple {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+.animate-pulse-simple {
+  animation: pulse-simple 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.animate-pulse-dot-purple {
+  animation: pulse-dot-purple 2s ease-in-out infinite;
+}
+
+/* Mobile Genius tabs light up only when an update lands in a panel the user
+   is not currently viewing. The effect is deliberately small and respects
+   reduced-motion preferences. */
+@keyframes mobile-tab-signal {
+  0%, 100% {
+    box-shadow: inset 0 -2px 0 rgb(59 130 246 / 0.2), 0 0 0 rgb(59 130 246 / 0);
+    color: rgb(37 99 235);
+  }
+  50% {
+    box-shadow: inset 0 -2px 0 rgb(59 130 246 / 0.95), 0 -1px 14px rgb(59 130 246 / 0.5);
+    color: rgb(29 78 216);
+  }
+}
+
+.mobile-tab-attention {
+  animation: mobile-tab-signal 1.35s ease-in-out infinite;
+}
+
+.dark .mobile-tab-attention {
+  color: rgb(147 197 253);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-tab-attention {
+    animation: none;
+    box-shadow: inset 0 -2px 0 rgb(59 130 246 / 0.95);
+  }
+}
+
+@keyframes pulse-dot-purple {
+  0%, 100% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
+}
+
+@keyframes directional-impulse {
+  0% { 
+    transform: translateX(0) scale(0.3) translateY(0); 
+    opacity: 0; 
+  }
+  15% { 
+    opacity: 0.7; 
+    transform: translateX(10px) scale(1) translateY(-1px);
+  }
+  50% {
+    transform: translateX(45px) scale(0.8) translateY(1px);
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.3;
+    transform: translateX(85px) scale(0.6) translateY(-1px);
+  }
+  100% { 
+    transform: translateX(120px) scale(0) translateY(0); 
+    opacity: 0; 
+  }
+}
+
+.animate-directional-impulse-1 {
+  animation: directional-impulse 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-directional-impulse-2 {
+  animation: directional-impulse 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.1s;
+}
+
+.animate-directional-impulse-3 {
+  animation: directional-impulse 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 2.3s;
+}
+
+@keyframes searchGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.3),
+      0 0 40px rgba(59, 130, 246, 0.2),
+      0 0 60px rgba(59, 130, 246, 0.1),
+      inset 0 0 20px rgba(59, 130, 246, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(59, 130, 246, 0.5),
+      0 0 60px rgba(59, 130, 246, 0.3),
+      0 0 90px rgba(59, 130, 246, 0.2),
+      inset 0 0 30px rgba(59, 130, 246, 0.1);
+  }
+}
+
+@keyframes aiSearchGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(147, 51, 234, 0.3),
+      0 0 40px rgba(59, 130, 246, 0.2),
+      0 0 60px rgba(236, 72, 153, 0.1),
+      inset 0 0 20px rgba(147, 51, 234, 0.05);
+  }
+  33% {
+    box-shadow: 
+      0 0 30px rgba(59, 130, 246, 0.4),
+      0 0 60px rgba(147, 51, 234, 0.3),
+      0 0 90px rgba(236, 72, 153, 0.2),
+      inset 0 0 30px rgba(59, 130, 246, 0.1);
+  }
+  66% {
+    box-shadow: 
+      0 0 30px rgba(236, 72, 153, 0.4),
+      0 0 60px rgba(59, 130, 246, 0.3),
+      0 0 90px rgba(147, 51, 234, 0.2),
+      inset 0 0 30px rgba(236, 72, 153, 0.1);
+  }
+}
+
+.animate-search-glow {
+  animation: searchGlow 3s ease-in-out infinite;
+}
+
+.animate-ai-search-glow {
+  animation: aiSearchGlow 4s ease-in-out infinite;
+}
+
+@keyframes intersectionPulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 0%);
+  --muted: hsl(0, 0%, 96%);
+  --muted-foreground: hsl(0, 0%, 45%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 0%);
+  --card: hsl(220, 14%, 96%);
+  --card-foreground: hsl(0, 0%, 0%);
+  --border: hsl(220, 13%, 88%);
+  --input: hsl(0, 0%, 100%);
+  --primary: hsl(221, 83%, 53%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(0, 0%, 96%);
+  --secondary-foreground: hsl(0, 0%, 0%);
+  --accent: hsl(0, 0%, 96%);
+  --accent-foreground: hsl(0, 0%, 0%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(221, 83%, 53%);
+
+  /* Horizontal scrollbar thumb colours */
+  --scrollbar-thumb: rgba(100, 116, 139, 0.35);
+  --scrollbar-thumb-hover: rgba(100, 116, 139, 0.6);
+  
+  /* Dark mode variables */
+  --apple-text-primary-dark: hsl(0, 0%, 98%);
+  --apple-text-secondary-dark: hsl(0, 0%, 64%);
+  --apple-gray-dark-bg: hsl(240, 10%, 3.9%);
+  --apple-gray-medium-dark: hsl(240, 3.7%, 15.9%);
+  --radius: 0.75rem;
+  
+  /* Apple-inspired Color Palette */
+  --apple-blue: hsl(221, 83%, 53%);
+  --apple-gray-light: hsl(0, 0%, 97%);
+  --apple-gray-medium: hsl(0, 0%, 86%);
+  --apple-gray-dark: hsl(0, 0%, 29%);
+  --apple-text-primary: hsl(0, 0%, 11%);
+  --apple-text-secondary: hsl(0, 0%, 45%);
+  
+  /* Chart colors */
+  --chart-1: hsl(221, 83%, 53%);
+  --chart-2: hsl(212, 95%, 68%);
+  --chart-3: hsl(216, 92%, 60%);
+  --chart-4: hsl(210, 98%, 78%);
+  --chart-5: hsl(212, 97%, 87%);
+}
+
+/* App background — plain white/black; cards contrast via their borders/shadows */
+.modern-4k-background {
+  background: #ffffff;
+}
+
+.dark .modern-4k-background {
+  background: #000000;
+}
+
+/* Engineering graph-paper grid for the empty workspace */
+.engineering-grid {
+  background-color: transparent;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.09) 1px, transparent 1px);
+  background-size: 40px 40px;
+  /* Fade lines toward every edge, keeping them solid only in the centre */
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
+}
+
+.dark .engineering-grid {
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.11) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 10%);
+  --muted-foreground: hsl(0, 0%, 70%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(222, 14%, 7%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(222, 15%, 22%);
+  --input: hsl(0, 0%, 0%);
+  --primary: hsl(221, 83%, 53%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(0, 0%, 10%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(0, 0%, 10%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(0, 0%, 70%);
+  --radius: 0.5rem;
+  
+  /* Apple-inspired Dark Mode Colors */
+  --apple-text-primary: hsl(0, 0%, 100%);
+  --apple-text-secondary: hsl(0, 0%, 70%);
+  --apple-gray-dark-bg: hsl(0, 0%, 0%);
+  --apple-gray-medium-dark: hsl(0, 0%, 10%);
+
+  /* Horizontal scrollbar thumb colours (dark) */
+  --scrollbar-thumb: rgba(148, 163, 184, 0.3);
+  --scrollbar-thumb-hover: rgba(148, 163, 184, 0.55);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter var", Inter, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.011em;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    padding-top: 80px; /* Account for fixed top navigation */
+    font-size: 14px;
+  }
+  
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+}
+
+/* Fixed navigation utility */
+.fixed-nav-offset {
+  padding-top: 80px;
+}
+
+/* Apple-inspired custom animations and utilities */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.animate-text-fade-in {
+  animation: textFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes busy-status-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.busy-status-enter {
+  animation: busy-status-enter 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes busy-status-dot {
+  0%, 65%, 100% {
+    opacity: 0.25;
+    transform: translateY(1px);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+}
+
+.busy-status-dot {
+  display: inline-block;
+  animation: busy-status-dot 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .busy-status-enter,
+  .busy-status-dot {
+    animation: none;
+  }
+}
+
+@keyframes streamingFade {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  30% {
+    opacity: 0.4;
+    filter: blur(2px);
+  }
+  70% {
+    opacity: 0.85;
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes typingFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.streaming-fade {
+  display: inline;
+  animation: streamingFade 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.typing-fade {
+  display: inline;
+  animation: typingFade 200ms ease-out forwards;
+}
+
+.chat-message-arrival {
+  animation: chatMessageArrival 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes chatMessageArrival {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .streaming-fade,
+  .typing-fade,
+  .chat-message-arrival {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Hide scrollbars for horizontal scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+/* Theme variations for company profiles */
+.theme-blue {
+  --company-primary: hsl(207, 90%, 54%);
+  --company-primary-light: hsl(207, 90%, 94%);
+}
+
+.theme-green {
+  --company-primary: hsl(142, 71%, 45%);
+  --company-primary-light: hsl(142, 71%, 94%);
+}
+
+.theme-purple {
+  --company-primary: hsl(271, 81%, 56%);
+  --company-primary-light: hsl(271, 81%, 94%);
+}
+
+.theme-orange {
+  --company-primary: hsl(24, 95%, 53%);
+  --company-primary-light: hsl(24, 95%, 94%);
+}
+
+/* 3D Model Viewer Styles */
+.model-viewer-container {
+  border: 2px dashed hsl(var(--border));
+  background: hsl(var(--background));
+  border-radius: calc(var(--radius) + 4px);
+}
+
+/* Orbiting Animation for About Section */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbit 8s linear infinite;
+}
+
+.model-viewer-container.loaded {
+  border-style: solid;
+  border-color: hsl(var(--primary));
+}
+
+/* Chat interface styles */
+.chat-message {
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.chat-message.user {
+  margin-left: auto;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.chat-message.bot {
+  margin-right: auto;
+  background: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+}
+
+/* File upload styling */
+.file-upload-area {
+  border: 2px dashed hsl(var(--border));
+  transition: all 0.2s ease;
+}
+
+.file-upload-area:hover {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary-50));
+}
+
+.file-upload-area.dragover {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary-50));
+}
+
+/* Company theme utilities */
+.company-theme-bg {
+  background: var(--company-primary, hsl(var(--primary)));
+}
+
+.company-theme-text {
+  color: var(--company-primary, hsl(var(--primary)));
+}
+
+.company-theme-border {
+  border-color: var(--company-primary, hsl(var(--primary)));
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(90deg, hsl(var(--muted)) 25%, transparent 50%, hsl(var(--muted)) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Modern Dynamic Background Animations */
+.modern-dynamic-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated mesh gradients */
+@keyframes mesh-1 {
+  0%, 100% { 
+    transform: translate(0%, 0%) rotate(0deg) scale(1); 
+    opacity: 0.6; 
+  }
+  33% { 
+    transform: translate(10%, -5%) rotate(120deg) scale(1.1); 
+    opacity: 0.8; 
+  }
+  66% { 
+    transform: translate(-5%, 8%) rotate(240deg) scale(0.9); 
+    opacity: 0.7; 
+  }
+}
+
+@keyframes mesh-2 {
+  0%, 100% { 
+    transform: translate(0%, 0%) rotate(0deg) scale(1); 
+    opacity: 0.5; 
+  }
+  50% { 
+    transform: translate(-8%, 12%) rotate(180deg) scale(1.2); 
+    opacity: 0.9; 
+  }
+}
+
+@keyframes mesh-3 {
+  0%, 100% { 
+    transform: translate(0%, 0%) rotate(0deg) scale(1); 
+    opacity: 0.4; 
+  }
+  25% { 
+    transform: translate(15%, -10%) rotate(90deg) scale(1.1); 
+    opacity: 0.7; 
+  }
+  75% { 
+    transform: translate(-10%, 15%) rotate(270deg) scale(0.8); 
+    opacity: 0.6; 
+  }
+}
+
+/* Removed mesh animations for clean static background */
+
+/* Floating elements */
+@keyframes float-modern {
+  0%, 100% { 
+    transform: translate(0px, 0px) rotate(0deg); 
+    opacity: 0.3; 
+  }
+  25% { 
+    transform: translate(20px, -15px) rotate(90deg); 
+    opacity: 0.6; 
+  }
+  50% { 
+    transform: translate(-10px, 25px) rotate(180deg); 
+    opacity: 0.4; 
+  }
+  75% { 
+    transform: translate(15px, -20px) rotate(270deg); 
+    opacity: 0.5; 
+  }
+}
+
+/* Removed float animation for clean static background */
+
+/* About page floating / pulse animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(90deg); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(-90deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.02); }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 12s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Scanning lines */
+@keyframes scan-line {
+  0%, 100% { 
+    transform: translateX(-100%); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: translateX(0%); 
+    opacity: 1; 
+  }
+}
+
+@keyframes scan-line-reverse {
+  0%, 100% { 
+    transform: translateX(100%); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: translateX(0%); 
+    opacity: 1; 
+  }
+}
+
+@keyframes scan-vertical {
+  0%, 100% { 
+    transform: translateY(-100%); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: translateY(0%); 
+    opacity: 1; 
+  }
+}
+
+@keyframes scan-vertical-reverse {
+  0%, 100% { 
+    transform: translateY(100%); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: translateY(0%); 
+    opacity: 1; 
+  }
+}
+
+.animate-scan-line {
+  animation: scan-line 8s ease-in-out infinite;
+}
+
+.animate-scan-line-reverse {
+  animation: scan-line-reverse 10s ease-in-out infinite;
+}
+
+.animate-scan-vertical {
+  animation: scan-vertical 12s ease-in-out infinite;
+}
+
+.animate-scan-vertical-reverse {
+  animation: scan-vertical-reverse 14s ease-in-out infinite;
+}
+
+/* Noise texture */
+.bg-noise {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background-size: 100px 100px, 80px 80px, 120px 120px;
+  background-position: 0 0, 40px 40px, 80px 80px;
+}
+
+/* Mobile-optimized utilities */
+@layer utilities {
+  /* Mobile touch targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
+  
+  /* Mobile viewport fixes */
+  .min-h-screen-mobile {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  /* Mobile text sizing */
+  .text-mobile-xs {
+    @apply text-xs md:text-sm;
+  }
+  
+  .text-mobile-sm {
+    @apply text-sm md:text-base;
+  }
+  
+  .text-mobile-base {
+    @apply text-base md:text-lg;
+  }
+  
+  .text-mobile-lg {
+    @apply text-lg md:text-xl;
+  }
+  
+  .text-mobile-xl {
+    @apply text-xl md:text-2xl;
+  }
+  
+  /* Mobile spacing */
+  .space-mobile {
+    @apply space-y-3 md:space-y-4;
+  }
+  
+  .gap-mobile {
+    @apply gap-3 md:gap-4;
+  }
+  
+  .p-mobile {
+    @apply p-3 md:p-4;
+  }
+  
+  .px-mobile {
+    @apply px-4 md:px-6;
+  }
+  
+  .py-mobile {
+    @apply py-3 md:py-4;
+  }
+  
+  /* Mobile grid utilities */
+  .grid-mobile-1-2 {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+  
+  .grid-mobile-2-4 {
+    @apply grid-cols-2 md:grid-cols-4;
+  }
+  
+  /* Mobile scroll optimization */
+  .scroll-mobile {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Text truncation for mobile */
+  .truncate-mobile {
+    @apply truncate sm:text-clip;
+  }
+}
+
+@keyframes dsPulseSubtle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.ds-status-pulse {
+  animation: dsPulseSubtle 2s ease-in-out infinite;
+}
+@keyframes dsDotBounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-4px); }
+}
+.ds-dot-1 { animation: dsDotBounce 1.2s ease-in-out infinite; }
+.ds-dot-2 { animation: dsDotBounce 1.2s ease-in-out infinite 0.15s; }
+.ds-dot-3 { animation: dsDotBounce 1.2s ease-in-out infinite 0.3s; }
+
+@keyframes resultRowReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.result-row-reveal {
+  opacity: 0;
+  animation: resultRowReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes recSectionReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rec-section-reveal {
+  opacity: 0;
+  animation: recSectionReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+}
+
+@keyframes reqRowReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.req-row-reveal {
+  opacity: 0;
+  animation: reqRowReveal 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.katex-block {
+  display: block;
+  margin: 0.75rem 0;
+  padding: 0.625rem 0.875rem;
+  background: hsl(220, 14%, 96%);
+  border-radius: 0.5rem;
+  border: 1px solid hsl(220, 13%, 91%);
+  overflow-x: auto;
+  text-align: left;
+  /* slim line+dot horizontal scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+.katex-block::-webkit-scrollbar {
+  height: 4px;
+}
+.katex-block::-webkit-scrollbar-track {
+  background: transparent;
+}
+.katex-block::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+.katex-block::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+.dark .katex-block {
+  background: hsl(220, 14%, 14%);
+  border-color: hsl(220, 13%, 22%);
+}
+.katex-block .katex {
+  font-size: 1.05em;
+}
+/* KaTeX's own stylesheet forces `.katex-display` (and the `.katex` node
+   directly inside it) to `text-align: center`, which wins over any
+   text-align set on our `.katex-block` wrapper since it targets a
+   different, nested element. Every formula in this app should read like a
+   worksheet line — starting flush at the left — so override both levels
+   wherever a `.katex-block` appears. */
+.katex-block .katex-display,
+.katex-block .katex-display > .katex {
+  text-align: left;
+}
+
+/* ── Slim horizontal scrollbar utilities ────────────────────────────── */
+/* .scrollbar-x-thin — 4 px pill thumb, near-invisible track              */
+/* .scrollbar-x-none — hides scrollbar entirely                           */
+
+.scrollbar-x-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+.scrollbar-x-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.scrollbar-x-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-x-thin::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+.scrollbar-x-thin::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+.scrollbar-x-none {
+  scrollbar-width: none;
+}
+.scrollbar-x-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Step-formula cell: the surrounding table (see .worksheet-table-scroll) is
+   the thing that scrolls horizontally on narrow screens, not this cell
+   alone — so it must not clip or introduce its own scrollbar. */
+.step-formula-cell {
+  min-width: 0;
+}
+
+/* Worksheet tables (calculation steps, input values, results, ...): on
+   narrow screens the whole row scrolls together as one unit instead of a
+   single cell scrolling on its own, so nothing gets clipped or hidden
+   behind a tiny inner scrollbar. This is a fallback for content that
+   genuinely can't be compressed further — tables that fit their columns
+   into the viewport (e.g. Input Values) shouldn't force a min-width, or
+   they'd scroll unnecessarily. */
+.worksheet-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* slim line+dot horizontal scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+.worksheet-table-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.worksheet-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.worksheet-table-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+.worksheet-table-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* Calculation-steps table: responsive formula rows measure rendered KaTeX
+   against the live Step-column width. The table can still compress on mobile;
+   genuinely wide fallback rows use the surrounding table scroll container. */
+.worksheet-table-scroll--wide table {
+  min-width: 0;
+}
+
+.step-math-layout .katex-block {
+  background: transparent;
+  border-color: transparent;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  text-align: left;
+}
+
+/* The duplicate formula markup is reserved for the fixed-width PDF layout. */
+.step-math-print {
+  display: none;
+}
+
+/* Preserve the exact rendered equation for width comparison without making it
+   visible or affecting the table row's height and width. */
+.step-math-measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.step-math-measure .katex-block,
+.step-math-measure .katex-display {
+  width: max-content;
+}
+
+@media (max-width: 768px) {
+  /* Slightly reduce font size on mobile so more math fits per row */
+  .step-math-layout .katex-block .katex {
+    font-size: 0.9em;
+  }
+}
+/* Genius X1 — theme-aware chart colors (recharts reads these CSS vars) */
+:root {
+  --chart-grid: #e5e7eb;
+  --chart-axis: #6b7280;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: #e5e7eb;
+  --chart-tooltip-label: #374151;
+}
+.dark {
+  --chart-grid: #374151;
+  --chart-axis: #9ca3af;
+  --chart-tooltip-bg: #111827;
+  --chart-tooltip-border: #374151;
+  --chart-tooltip-label: #e5e7eb;
+}
+
+/* Genius X1 — step formulas kept at the same size as body text (no oversizing) */
+.genius-formula .katex-block {
+  margin: 0.15rem 0;
+  padding: 0.15rem 0.15rem;
+  background: transparent;
+  border-color: transparent;
+  text-align: left;
+}
+.dark .genius-formula .katex-block {
+  border-color: transparent;
+}
+.genius-formula .katex-block .katex {
+  font-size: 1.1em;
+}
+.genius-formula--subtle .katex-block {
+  background: transparent;
+  border-color: transparent;
+  padding: 0.05rem 0.15rem;
+  margin: 0.1rem 0;
+}
+.genius-formula--subtle .katex-block .katex {
+  font-size: 1.05em;
+  color: hsl(215, 16%, 47%);
+}
+
+/* Genius X1 — symbols inherit the same compact inline metrics as adjacent
+   units while retaining semantically correct math italics and scripts. */
+.genius-symbol {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  vertical-align: baseline;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.genius-symbol .katex {
+  font-size: 1em;
+  line-height: inherit;
+}
+
+.katex-inline {
+  display: inline-block;
+  white-space: nowrap;
+}
+.katex-inline .katex {
+  font-size: 1em;
+}
+.dark .katex .katex-html {
+  color: hsl(210, 20%, 90%);
+}
+
+.hero-fold {
+  min-height: calc(100vh - 4.5rem);
+  min-height: calc(100svh - 4.5rem);
+  min-height: calc(100dvh - 4.5rem);
+}
+@media (min-width: 640px) {
+  .hero-fold {
+    min-height: calc(100vh - 5rem);
+    min-height: calc(100svh - 5rem);
+    min-height: calc(100dvh - 5rem);
+  }
+}
+@media (min-width: 768px) {
+  .hero-fold {
+    min-height: calc(100vh - 5.75rem);
+    min-height: calc(100svh - 5.75rem);
+    min-height: calc(100dvh - 5.75rem);
+  }
+}
+

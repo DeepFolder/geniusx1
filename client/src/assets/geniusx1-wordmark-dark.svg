@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1030" height="231" viewBox="0 0 1030 231">
+<title>GeniusX1 - Bold</title>
+<desc>Custom bold geometric Genius lettering with raised blue X1. Transparent background and no font dependencies.</desc>
+<g id="GeniusX1-Bold" transform="translate(20 16)">
+<g id="Genius" fill="#FFFFFF" fill-rule="evenodd"><path id="letter-G" transform="translate(0 0)" d="M181 66 H142 C134 53 120 47 99 47 C62 47 36 67 36 105 C36 144 62 164 100 164 C121 164 139 158 151 147 V128 H101 V97 H185 V164 C164 183 135 192 99 192 C39 192 0 160 0 105 C0 50 39 16 99 16 C140 16 170 35 181 66 Z"/>
+<path id="letter-e" transform="translate(200 0)" d="M140 137 H35 C38 158 49 169 72 169 C88 169 99 163 107 153 L136 167 C123 185 101 194 71 194 C27 194 0 168 0 128 C0 88 26 62 70 62 C112 62 140 88 140 129 Z M35 113 H105 C102 96 90 86 71 86 C52 86 39 96 35 113 Z"/>
+<path id="letter-n" transform="translate(359 0)" d="M0 64 H34 V80 C45 67 59 62 79 62 C111 62 131 82 131 118 V190 H96 V121 C96 102 88 93 72 93 C48 93 35 107 35 130 V190 H0 Z"/>
+<path id="letter-i" transform="translate(510 0)" d="M5 19 H30 Q35 19 35 24 V48 Q35 53 30 53 H5 Q0 53 0 48 V24 Q0 19 5 19 Z M0 64 H35 V190 H0 Z"/>
+<path id="letter-u" transform="translate(566 0)" d="M0 64 H35 V136 C35 154 43 164 59 164 C82 164 96 150 96 128 V64 H131 V190 H97 V174 C85 188 70 194 51 194 C18 194 0 174 0 138 Z"/>
+<path id="letter-s" transform="translate(715 0)" d="M125 83 L104 105 C93 94 81 88 63 88 C47 88 38 93 38 101 C38 110 48 112 70 117 C111 124 129 134 129 156 C129 181 104 195 67 195 C36 195 12 187 0 171 L23 149 C33 163 49 169 68 169 C85 169 95 164 95 156 C95 148 85 145 63 141 C24 134 5 125 5 102 C5 77 29 61 65 61 C92 61 111 68 125 83 Z"/></g>
+<g id="X1" fill="#0055FF" transform="translate(850 0)"><path id="letter-X" d="M0 4 H24 L50 33 L76 4 H100 L24 92 H0 L38 48 Z M56 66 L69 51 L103 92 H78 Z"/><path id="letter-1" d="M118 4 H140 V92 H120 V24 H106 Z"/></g></g>
+</svg>

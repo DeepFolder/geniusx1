@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon | DeepFolder</title>
+  <meta name="description" content="DeepFolder - Discover. Connect. Innovate. Be part of the future of intelligent discovery. Join the waitlist for early access.">
+  <meta property="og:title" content="Coming Soon | DeepFolder">
+  <meta property="og:description" content="Discover. Connect. Innovate. Be part of the future of intelligent discovery.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: hsl(0, 0%, 100%);
+      --foreground: hsl(0, 0%, 0%);
+      --footer-height: 4rem;
+    }
+
+    html.dark {
+      --background: hsl(0, 0%, 0%);
+      --foreground: hsl(0, 0%, 100%);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -0.022em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 14px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+    }
+
+    /* Modern 4K Background */
+    .modern-4k-background {
+      background: var(--background);
+    }
+
+    /* Search Glow Animation */
+    @keyframes searchGlow {
+      0%, 100% {
+        box-shadow: 
+          0 0 20px rgba(59, 130, 246, 0.3),
+          0 0 40px rgba(59, 130, 246, 0.2),
+          0 0 60px rgba(59, 130, 246, 0.1),
+          inset 0 0 20px rgba(59, 130, 246, 0.05);
+      }
+      50% {
+        box-shadow: 
+          0 0 30px rgba(59, 130, 246, 0.5),
+          0 0 60px rgba(59, 130, 246, 0.3),
+          0 0 90px rgba(59, 130, 246, 0.2),
+          inset 0 0 30px rgba(59, 130, 246, 0.1);
+      }
+    }
+
+    .animate-search-glow {
+      animation: searchGlow 3s ease-in-out infinite;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(200, 200, 200, 0.5);
+      border-radius: 50px;
+      padding: 8px 16px 8px 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    html.dark .theme-toggle {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .toggle-icon-wrapper {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      border-radius: 50%;
+    }
+
+    .toggle-icon {
+      width: 16px;
+      height: 16px;
+      color: white;
+    }
+
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: hsl(0, 0%, 45%);
+      letter-spacing: 0.02em;
+    }
+
+    html.dark .toggle-label {
+      color: hsl(0, 0%, 70%);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 1rem;
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    @media (min-width: 640px) {
+      .hero-section {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-section {
+        padding: 3rem;
+      }
+    }
+
+    /* Title Container */
+    .title-container {
+      text-align: center;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .title-container {
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Logo wrapper */
+    .logo-wrapper {
+      margin-bottom: -1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Logo */
+    .logo {
+      height: 6rem;
+      width: auto;
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+
+    @media (min-width: 640px) {
+      .logo {
+        height: 7rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .logo {
+        height: 8rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .logo {
+        height: 10rem;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .logo {
+        height: 12rem;
+      }
+    }
+
+    /* Headline */
+    .headline {
+      font-size: 1.375rem;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: hsl(0, 0%, 11%);
+      tracking: -0.02em;
+    }
+
+    html.dark .headline {
+      color: hsl(0, 0%, 100%);
+    }
+
+    @media (min-width: 640px) {
+      .headline {
+        font-size: 1.875rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .headline {
+        font-size: 2.25rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .headline {
+        font-size: 3rem;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .headline {
+        font-size: 3.75rem;
+      }
+    }
+
+    @media (min-width: 1536px) {
+      .headline {
+        font-size: 4.5rem;
+      }
+    }
+
+    .headline-gradient {
+      background: linear-gradient(to right, rgb(37, 99, 235), rgb(168, 85, 247), rgb(236, 72, 153));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Subheadline */
+    .subheadline {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      max-width: 48rem;
+      margin: 0 auto;
+      color: hsl(0, 0%, 45%);
+      padding: 0 0.5rem;
+      letter-spacing: inherit;
+      margin-bottom: 1rem;
+    }
+
+    html.dark .subheadline {
+      color: hsl(0, 0%, 70%);
+    }
+
+    @media (min-width: 640px) {
+      .subheadline {
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .subheadline {
+        font-size: 1.125rem;
+        padding: 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .subheadline {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* Search Container */
+    .search-container {
+      margin-bottom: 0.75rem;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .search-container {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .search-wrapper {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 0;
+      width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .search-wrapper {
+        padding: 0 1.5rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .search-wrapper {
+        padding: 0 0.5rem;
+      }
+    }
+
+    /* Email Form */
+    .email-form {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 0.875rem;
+      padding: 0.625rem 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
+    }
+
+    html.dark .email-form {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .email-form.animate-search-glow {
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+    }
+
+    .email-form:focus-within {
+      border-color: rgb(59, 130, 246);
+      animation: searchGlow 3s ease-in-out infinite;
+      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.2);
+    }
+
+    .form-icon {
+      width: 1.125rem;
+      height: 1.125rem;
+      color: rgb(59, 130, 246);
+      flex-shrink: 0;
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .form-icon {
+        display: block;
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+
+    .email-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0.5rem 0.5rem;
+      font-size: 0.9375rem;
+      color: hsl(0, 0%, 11%);
+      font-family: inherit;
+      letter-spacing: inherit;
+      min-height: 2.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .email-input {
+        padding: 0.5rem;
+        font-size: 1rem;
+        min-height: auto;
+      }
+    }
+
+    html.dark .email-input {
+      color: hsl(0, 0%, 100%);
+    }
+
+    .email-input::placeholder {
+      color: hsl(0, 0%, 45%);
+      font-size: 0.8125rem;
+    }
+
+    html.dark .email-input::placeholder {
+      color: hsl(0, 0%, 70%);
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, rgb(37, 99, 235), rgb(59, 130, 246));
+      color: white;
+      border: none;
+      border-radius: 0.625rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: inherit;
+    }
+
+    @media (min-width: 640px) {
+      .submit-btn {
+        border-radius: 0.75rem;
+        padding: 0.625rem 1.5rem;
+        font-size: 0.9375rem;
+      }
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-0.125rem);
+      box-shadow: 0 12px 35px rgba(59, 130, 246, 0.35);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .email-form {
+        flex-direction: row;
+        gap: 0.25rem;
+        padding: 0.375rem 0.625rem;
+        border-radius: 0.75rem;
+        align-items: center;
+        height: 2.25rem;
+      }
+      .form-icon {
+        display: block !important;
+        width: 0.875rem;
+        height: 0.875rem;
+        flex-shrink: 0;
+      }
+      .email-input {
+        flex: 1;
+        min-width: 0;
+        padding: 0.25rem 0.375rem;
+        font-size: 0.625rem;
+        line-height: 1.2;
+        height: 1.75rem;
+      }
+      .email-input::placeholder {
+        font-size: 0.55rem;
+      }
+      .submit-btn {
+        padding: 0.25rem 0.625rem;
+        font-size: 0.6rem;
+        flex-shrink: 0;
+        border-radius: 0.5rem;
+        white-space: nowrap;
+        height: 1.75rem;
+      }
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 0.625rem;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      color: #22c55e;
+      font-weight: 500;
+      font-size: 0.8125rem;
+    }
+
+    @media (min-width: 640px) {
+      .success-message {
+        border-radius: 0.75rem;
+        padding: 1rem 1.5rem;
+        margin-top: 1rem;
+        font-size: 0.9375rem;
+      }
+    }
+
+    .success-message.show {
+      display: flex;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-0.625rem); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-icon {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .success-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      flex-shrink: 0;
+      height: var(--footer-height);
+      padding: 0 1.25rem;
+      text-align: center;
+      background: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: auto;
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: hsl(0, 0%, 45%);
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
+
+    @media (min-width: 640px) {
+      .footer {
+        padding: 0 1.5rem;
+      }
+      .footer-text {
+        font-size: 0.8125rem;
+      }
+    }
+
+    html.dark .footer-text {
+      color: hsl(0, 0%, 70%);
+    }
+
+    .footer-link {
+      color: rgb(37, 99, 235);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: rgb(6, 182, 212);
+    }
+
+    /* Consent Text */
+    .consent-text {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.6rem;
+      color: hsl(0, 0%, 50%);
+      line-height: 1.3;
+    }
+
+    @media (min-width: 640px) {
+      .consent-text {
+        margin-top: 1rem;
+        font-size: 0.75rem;
+      }
+    }
+
+    html.dark .consent-text {
+      color: hsl(0, 0%, 55%);
+    }
+
+    .consent-link {
+      color: rgb(59, 130, 246);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .consent-link:hover {
+      color: rgb(96, 165, 250);
+      text-decoration: underline;
+    }
+
+    /* Coming Soon Text */
+    .coming-soon-text {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: hsl(0, 0%, 45%);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 640px) {
+      .coming-soon-text {
+        margin-top: 1.25rem;
+        font-size: 1.125rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .coming-soon-text {
+        margin-top: 1.5rem;
+        font-size: 1.5rem;
+      }
+    }
+
+    html.dark .coming-soon-text {
+      color: hsl(0, 0%, 70%);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.375rem 0.75rem 0.375rem 0.5rem;
+      }
+      .toggle-icon-wrapper {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .toggle-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="modern-4k-background"></div>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" data-testid="button-theme-toggle" aria-label="Toggle theme">
+    <div class="toggle-icon-wrapper">
+      <svg class="toggle-icon" id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+      </svg>
+      <svg class="toggle-icon" id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display: none;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </div>
+    <span class="toggle-label" id="toggleLabel" data-testid="text-theme-label">Dark</span>
+  </button>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="w-full">
+      <!-- Title -->
+      <div class="title-container">
+        <div class="logo-wrapper">
+          <img src="logo.png" alt="DeepFolder" class="logo" data-testid="img-logo">
+        </div>
+        
+        <h1 class="headline" data-testid="text-headline">
+          Discover. Connect. <span class="headline-gradient">Innovate.</span>
+        </h1>
+        
+        <p class="subheadline" data-testid="text-subheadline">
+          Explore the Future of Product Discovery - Powered by AI
+        </p>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <form class="email-form animate-search-glow" id="signupForm" data-testid="form-signup">
+            <svg class="form-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input 
+              type="email" 
+              class="email-input" 
+              id="emailInput"
+              placeholder="Enter your email to get early access" 
+              required
+              data-testid="input-email"
+            >
+            <button type="submit" class="submit-btn" data-testid="button-submit">
+              Join the waitlist
+            </button>
+          </form>
+          <p class="consent-text" data-testid="text-consent">
+            By joining, you agree to receive updates from DeepFolder. <a href="privacy-policy.html" class="consent-link" data-testid="link-privacy">Privacy Policy</a>
+          </p>
+          <div class="success-message" id="successMessage" data-testid="message-success">
+            <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>You're on the list! We'll be in touch soon.</span>
+          </div>
+          <div class="coming-soon-text" data-testid="text-coming-soon">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">
+      &copy; 2025 DeepFolder &middot; Zurich, Switzerland &middot; <a href="mailto:info@deepfolder.ai" class="footer-link" data-testid="link-email">info@deepfolder.ai</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const toggleLabel = document.getElementById('toggleLabel');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const html = document.documentElement;
+
+    function updateThemeUI(isDark) {
+      if (isDark) {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        toggleLabel.textContent = 'Dark';
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        toggleLabel.textContent = 'Light';
+      }
+    }
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('deepfolder-theme') || 'dark';
+    if (savedTheme === 'dark') {
+      html.classList.add('dark');
+      updateThemeUI(true);
+    } else {
+      updateThemeUI(false);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      updateThemeUI(isDark);
+      localStorage.setItem('deepfolder-theme', isDark ? 'dark' : 'light');
+    });
+
+    // Email Form
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const successMessage = document.getElementById('successMessage');
+      const submitBtn = document.querySelector('.submit-btn');
+      const successSpan = successMessage.querySelector('span');
+
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
+      // Disable button while submitting
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Joining...';
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email: email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          successSpan.textContent = data.message || "You're on the list! We'll be in touch soon.";
+          successMessage.classList.add('show');
+          document.getElementById('emailInput').value = '';
+        } else {
+          alert(data.error || 'Failed to join waitlist. Please try again.');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        alert('An error occurred. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Join the waitlist';
+      }
+
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

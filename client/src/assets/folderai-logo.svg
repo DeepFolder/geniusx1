@@ -1,0 +1,15 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="modernGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Modern rounded square -->
+  <rect x="8" y="8" width="32" height="32" rx="8" fill="url(#modernGrad)" />
+  
+  <!-- Simple "D" for DeepFolder -->
+  <path d="M16 16 L16 32 L26 32 C30.4183 32 34 28.4183 34 24 C34 19.5817 30.4183 16 26 16 L16 16 Z M20 20 L26 20 C28.2091 20 30 21.7909 30 24 C30 26.2091 28.2091 28 26 28 L20 28 L20 20 Z" 
+        fill="white" fill-rule="evenodd" />
+</svg>

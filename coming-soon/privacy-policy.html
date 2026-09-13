@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | DeepFolder</title>
+  <meta name="description" content="DeepFolder Privacy Policy - Learn how we handle your email when you join our waitlist.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: hsl(0, 0%, 100%);
+      --foreground: hsl(0, 0%, 0%);
+      --muted: hsl(0, 0%, 45%);
+      --accent: rgb(59, 130, 246);
+    }
+
+    html.dark {
+      --background: hsl(0, 0%, 0%);
+      --foreground: hsl(0, 0%, 100%);
+      --muted: hsl(0, 0%, 60%);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding: 3rem 2rem 5rem;
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.8;
+    }
+
+    .back-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, rgb(37, 99, 235), rgb(147, 51, 234), rgb(236, 72, 153));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    p {
+      color: var(--foreground);
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(128, 128, 128, 0.2);
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(200, 200, 200, 0.5);
+      border-radius: 50px;
+      padding: 0.5rem 1rem 0.5rem 0.625rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8125rem;
+    }
+
+    html.dark .theme-toggle {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .toggle-icon-wrapper {
+      width: 1.5rem;
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      border-radius: 50%;
+    }
+
+    .toggle-icon {
+      width: 0.875rem;
+      height: 0.875rem;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <div class="toggle-icon-wrapper">
+      <svg class="toggle-icon" id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+      </svg>
+      <svg class="toggle-icon" id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display: none;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </div>
+    <span id="toggleLabel">Dark</span>
+  </button>
+
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Back to Home
+    </a>
+
+    <h1>Privacy Policy</h1>
+    
+    <p><strong>Last Updated: December 12, 2025</strong></p>
+
+    <p>We collect your email address when you join our waitlist to notify you when DeepFolder launches and send product updates. Your email is never sold, rented, or shared with third parties for marketing purposes.</p>
+
+    <p><strong>Data Sharing:</strong> Your email is transmitted to Beehiiv, our newsletter service provider. You can review their privacy practices on their website.</p>
+
+    <p><strong>Security:</strong> Your data is transmitted securely over HTTPS. We use industry-standard measures to protect your information.</p>
+
+    <p><strong>Your Rights:</strong> You can request access, correction, or deletion of your data at any time. Every email includes an unsubscribe link, or email us at <a href="mailto:info@deepfolder.ai">info@deepfolder.ai</a> to remove your data.</p>
+
+    <p><strong>Contact:</strong> Questions? Email <a href="mailto:info@deepfolder.ai">info@deepfolder.ai</a>.</p>
+
+    <div class="footer">
+      <p class="footer-text">&copy; 2025 DeepFolder &middot; Zurich, Switzerland</p>
+    </div>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const toggleLabel = document.getElementById('toggleLabel');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const html = document.documentElement;
+
+    function updateThemeUI(isDark) {
+      if (isDark) {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        toggleLabel.textContent = 'Dark';
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        toggleLabel.textContent = 'Light';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('deepfolder-theme') || 'dark';
+    if (savedTheme === 'dark') {
+      html.classList.add('dark');
+      updateThemeUI(true);
+    } else {
+      updateThemeUI(false);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      updateThemeUI(isDark);
+      localStorage.setItem('deepfolder-theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Genius X1 — Engineering Calculations</title>
+    <meta name="description" content="Describe an engineering problem in plain language and get a transparent, editable, source-backed calculation with step-by-step working, charts, and confidence scoring." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Apply the saved Genius X1 theme before React paints to avoid a flash.
+      (function () {
+        try {
+          if (localStorage.getItem("genius-theme") === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  </body>
+</html>
