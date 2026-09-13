@@ -1,0 +1,86 @@
+name: geniusx1
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: geniusx1
+      POSTGRES_DB: geniusx1
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geniusx1 -d geniusx1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    mem_limit: 512m
+    cpus: 0.5
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - backend
+
+  app:
+    image: ${APP_IMAGE:?Set APP_IMAGE to the built release}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5081:5000"
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 5000
+      APP_URL: https://geniusx1.com
+      FRONTEND_URL: https://geniusx1.com
+      SITE_URL: https://geniusx1.com
+      DATABASE_URL: postgresql://geniusx1:${POSTGRES_PASSWORD}@postgres:5432/geniusx1
+      DATABASE_SSL: disable
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ENABLE_STARTUP_AI_JOBS: "false"
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/uploads
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    mem_limit: 1536m
+    cpus: 1.0
+    stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:5000/api/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: geniusx1-backend
+
+volumes:
+  postgres-data:
+    name: geniusx1-postgres-data
+  uploads:
+    name: geniusx1-uploads

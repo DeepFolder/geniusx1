@@ -1,0 +1,15 @@
+.git
+.local
+.codex
+.agents
+.env
+.env.*
+!.env.example
+node_modules
+dist
+uploads
+*.tar.gz
+*.zip
+*.log
+.build-sha
+.build-date

@@ -869,6 +869,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  app.get('/api/ready', async (_req, res) => {
+    try {
+      await db.execute(sql`SELECT 1`);
+      res.json({ status: 'ready' });
+    } catch {
+      res.status(503).json({ status: 'unavailable' });
+    }
+  });
+
   // Build info endpoint — returns server start time and app version
   app.get('/api/build-info', (req, res) => {
     res.json({ deployedAt: SERVER_START_TIME, version: SERVER_VERSION });

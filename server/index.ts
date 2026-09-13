@@ -56,7 +56,7 @@ function toOrigin(input?: string | null): string | null {
   }
 }
 
-// Trust proxy - required for secure cookies behind Replit's HTTPS proxy
+// Trust the single HTTPS reverse proxy in front of the application.
 app.set('trust proxy', 1);
 
 // Security headers with Helmet
@@ -116,8 +116,6 @@ const allowedOrigins = [
   toOrigin(process.env.APP_URL),
   toOrigin(process.env.FRONTEND_URL),
   toOrigin(process.env.SITE_URL),
-  'https://deepfolder.ai',
-  'https://www.deepfolder.ai',
   'http://localhost:5000',
   'http://127.0.0.1:5000',
 ].filter(Boolean) as string[];
