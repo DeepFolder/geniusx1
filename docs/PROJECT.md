@@ -81,11 +81,18 @@ this application: its pnpm workspace and schema assumptions are different.
 
 ## Remaining work, in order
 
-1. **Owner:** add an authorized `OPENAI_API_KEY` to `.env`. **Codex:** restart and
+1. **Owner:** sign the GitHub CLI into an account with repository write access
+   (for example, `gh auth login --hostname github.com --git-protocol https --web`
+   and select DeepFolder). **Codex:** publish the reviewed local commits afterward.
+   The current Git CLI account, mikelkra, has read-only access. The connected
+   GitHub app has owner access, but automatic approval review rejected its upload
+   because the request exceeded its 200,000-byte review limit. The changes are
+   committed locally and are not yet available by pulling GitHub.
+2. **Owner:** add an authorized `OPENAI_API_KEY` to `.env`. **Codex:** restart and
    verify a real proposal/calculation with the account's available models.
-2. **Codex:** investigate the remaining test failures and TypeScript errors as
+3. **Codex:** investigate the remaining test failures and TypeScript errors as
    development work; preserve auth and deterministic calculation behavior.
-3. **Owner/Codex:** choose hosting when deployment is requested, rotate any old
+4. **Owner/Codex:** choose hosting when deployment is requested, rotate any old
    exported signing secret still in use, and configure database/storage/email.
-4. **Codex:** follow `DEPLOYMENT.md`, verify the public service, and record the
+5. **Codex:** follow `DEPLOYMENT.md`, verify the public service, and record the
    actual hosting/release details. No live deployment is claimed now.
