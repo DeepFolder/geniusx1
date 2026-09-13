@@ -91,6 +91,10 @@ Its root is `/opt/geniusx1`, its Docker project/network/volumes start with
 `geniusx1`, and its local proxy port is 5081. Do not reuse another app's database,
 API keys, signing secrets, domains, volumes, or deployment pipeline.
 
+For a colleague's release handoff, use `docs/CODEX-DEPLOY-PROMPT.md`. Confirm the
+remote application branch contains the deployment setup and that this computer
+has authorized GitHub/SSH access. A Git push alone does not deploy the app.
+
 ## Handoff
 
 Update the project record with verified behavior and remaining work. Use short,

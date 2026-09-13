@@ -39,7 +39,7 @@ SSH and API credentials must be supplied privately; Git does not include them.
 
    ```sh
    cd /opt/geniusx1
-   docker compose --env-file shared/app.env -f compose.production.yml up -d --wait app
+   docker compose --env-file shared/app.env -f compose.production.yml up -d --no-deps --wait --wait-timeout 90 app
    ```
 
 6. Verify `/api/ready`, `/api/build-info`, HTTPS sign-in, calculation save and

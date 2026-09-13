@@ -91,6 +91,9 @@ Start Codex in this repository root and ask it to run the app. Keep
 [PROJECT.md](docs/PROJECT.md) updated with verified status.
 
 For a new computer, give Codex the [copyable setup prompt](docs/CODEX-SETUP-PROMPT.md).
+For publishing changes to the existing VPS, use the
+[copyable deployment prompt](docs/CODEX-DEPLOY-PROMPT.md), including its access
+and source-publication prerequisites. A Git push alone does not update the site.
 
 Read [DEPLOYMENT.md](docs/DEPLOYMENT.md) for production requirements, migration
 limitations, storage, and release steps. The application is deployed at

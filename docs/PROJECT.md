@@ -103,6 +103,13 @@ a component-preview starter. The histories were not merged, and the repository's
 default branch was not changed. Colleagues must select the application branch;
 the README gives the exact clone command.
 
+The remote branch advanced to `b602fb3552d6261f6dd37a87573f53931892c5ec` on the
+latest fetch. It contains an additional local/Replit setup commit but not the
+Docker deployment files used here. The remote and local branches have diverged;
+review and reconcile both before publishing, without force-pushing or deploying
+the older source over the live app. The colleague's release prompt is
+`docs/CODEX-DEPLOY-PROMPT.md`; GitHub and SSH access must be provided separately.
+
 Earlier starter edits are preserved in the local Git stash named
 "Before importing actual Genius X1 app on 2026-09-13". Old build/dependency folders
 are under `.local/starter-build-backup-2026-09-13/`. Do not apply that stash to
