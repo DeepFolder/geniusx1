@@ -1,8 +1,30 @@
 # Deploying Genius X1
 
-The app runs locally on Windows and its production bundle builds. No public
-deployment was made here; no hosting account/domain is configured. Live AI and
-file-storage portability still need verification.
+The production target is **https://geniusx1.com** on the owner's CloudPanel VPS.
+Genius X1 uses its own Docker project, PostgreSQL database, secrets, and uploads.
+Read [the VPS operations guide](../deploy/README.md) for exact paths, release
+commands, backups, and rollback. Live AI and file-storage portability still need
+verification.
+
+## Current release
+
+Verified live on 2026-09-13 at **https://geniusx1.com**. The app image is
+`geniusx1:67aabb0c9a0da1738c9dc1e3b1c31c71be1f43fb`, built from that committed
+source and identified by `/api/build-info`. CloudPanel proxies to port 5081 on
+loopback and manages the Let's Encrypt certificate for the apex and `www`.
+The existing other application on the VPS retained its image, port, and healthy
+database connection throughout this deployment.
+
+HTTPS login, secure cookies, saving/recalculation/reload/version history, owner
+authentication, and missing-key behavior were tested against the public service.
+The verification calculation was deleted afterward. The browser rendered the
+actual Genius X1 workspace. Daily database backups are enabled through
+`geniusx1-backup.timer`; an initial backup passed its gzip integrity check.
+
+AI generation and email are not configured. Set only this app's credentials in
+`/opt/geniusx1/shared/app.env` and recreate its app container. Do not put secrets
+in Docker images or Git. The deployed app uses the production launcher and does
+not start or seed the native development database.
 
 ## Build and runtime
 
@@ -73,7 +95,8 @@ have not been migrated or verified for another host.
 1. Resolve or explicitly assess the known check failures in `PROJECT.md`.
 2. Provision database/secrets and apply reviewed schema changes.
 3. Build, start under the host's process supervisor, and configure HTTPS/origins.
-   `/api/health` checks the process, not database/AI/storage readiness.
+   `/api/health` checks the process. `/api/ready` also checks the database; neither
+   proves that AI or storage providers are configured.
 4. Verify the public workspace, sign-in, real AI calculation, recalculation,
    saving/reload/version history, account isolation, and enabled upload/email flows.
 5. Record the provider, domain, deployed commit, migration, restart command, and

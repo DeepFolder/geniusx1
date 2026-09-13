@@ -92,4 +92,5 @@ Start Codex in this repository root and ask it to run the app. Keep
 For a new computer, give Codex the [copyable setup prompt](docs/CODEX-SETUP-PROMPT.md).
 
 Read [DEPLOYMENT.md](docs/DEPLOYMENT.md) for production requirements, migration
-limitations, storage, and release steps. No public deployment was made here.
+limitations, storage, and release steps. The application is deployed at
+[geniusx1.com](https://geniusx1.com); AI generation still needs its own API key.

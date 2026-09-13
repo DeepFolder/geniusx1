@@ -78,6 +78,19 @@ integration; deleting its dependencies alone breaks file handling.
   When asked to prepare work for a colleague to pull, make reviewed changes
   available on the agreed Git branch.
 
+## Production deployment
+
+The user's chosen domain is **geniusx1.com**. Read `deploy/README.md` and
+`docs/DEPLOYMENT.md` before operating the VPS. Use the albertsalicunaj/owner
+account; verify account identity before using Hostinger tools. The desktop's
+global Hostinger connection can belong to mikelkrasniqi and is not the requested
+deployment account.
+
+Genius X1 is independent of the other applications on the same CloudPanel VPS.
+Its root is `/opt/geniusx1`, its Docker project/network/volumes start with
+`geniusx1`, and its local proxy port is 5081. Do not reuse another app's database,
+API keys, signing secrets, domains, volumes, or deployment pipeline.
+
 ## Handoff
 
 Update the project record with verified behavior and remaining work. Use short,

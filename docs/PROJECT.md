@@ -4,9 +4,21 @@ Updated: 2026-09-13.
 
 ## Current status
 
-The actual application runs locally at http://localhost:5000 on Windows x64,
-using Node.js 24 and an isolated native PostgreSQL 16 database. The browser was
-verified and signed in using the generated local account.
+The application is live at **https://geniusx1.com**, using its own Docker app,
+PostgreSQL database, network, secrets, and uploads on the owner's CloudPanel VPS.
+The public browser workspace, HTTPS login, secure cookies, calculation saving,
+recalculation, reload, version history, and unauthenticated-access rejection were
+verified. A request from the unrelated DeepFolder origin was rejected too.
+`www.geniusx1.com` is configured to redirect to the apex domain.
+
+AI generation still needs a Genius X1 `OPENAI_API_KEY`; no real AI call was made.
+The private server environment file is `/opt/geniusx1/shared/app.env`.
+The initial administrator login is saved privately on this workstation in
+`.local/production-login.txt`; `.local/production-ai.env` is the prepared local
+input file for the owner to enter the API key. Neither belongs in Git.
+
+The local Windows setup remains available at http://localhost:5000 using Node.js
+24 and an isolated native PostgreSQL 16 database.
 
 Verified without an AI key:
 
@@ -19,12 +31,14 @@ Verified without an AI key:
 - Re-running setup preserves the database/account credentials.
 - The production bundle starts, serves its frontend/assets, and responds to
   `/api/health` on a separate local port. That temporary server was stopped.
-  This did not test production HTTPS sign-in or constitute public deployment.
+  This initial check was followed by the successful VPS deployment below.
 
 ## Setup delivered
 
 Use `npm ci`, `npm run setup`, and `npm run dev` with Node.js 24.
-The final lock file was verified with a clean `npm ci`.
+The lock file was verified with clean `npm ci` on Windows and Linux. The VPS's
+npm 11 also required 17 missing Tailwind Oxide/Lightning CSS platform records;
+those exact versions were restored, leaving every existing package record intact.
 
 The lock file contained Replit-only download addresses and omitted native
 Windows build packages. Those were repaired without changing the versions of
@@ -59,8 +73,16 @@ backfill is disabled. Saved-work arithmetic still uses the real evaluator.
   query/result typing issues, and an old default compiler target. No broad
   TypeScript cleanup was attempted.
 - Build warnings remain for duplicate legacy storage methods and bundle size.
-- No real AI call, scanned-PDF flow, remote storage, email, or public deployment
-  was verified. Do not equate passing mocks/builds with those capabilities.
+- VPS production image build and public HTTPS smoke check: passed. Runtime app
+  commit: `67aabb0c9a0da1738c9dc1e3b1c31c71be1f43fb`. Later commits add deployment
+  documentation and the separately installed backup scripts.
+- Relevant local suites were rerun for deployment: all 255 passed; the same 292
+  TypeScript errors remain. The full suite was not repeated for these changes.
+- The separate database was initialized only after confirming zero public
+  tables. A unique approved production admin was created. Daily database backups
+  are enabled, and an initial compressed backup was created and checked.
+- No real AI call, scanned-PDF flow, remote storage, or email was verified. Do not
+  equate passing mocks/builds with those capabilities.
 
 Use `npm test` for an isolated temporary database, not raw Vitest pointed at
 development or production data. Tests/benchmarks outside this wrapper need
@@ -88,11 +110,14 @@ this application: its pnpm workspace and schema assumptions are different.
    GitHub app has owner access, but automatic approval review rejected its upload
    because the request exceeded its 200,000-byte review limit. The changes are
    committed locally and are not yet available by pulling GitHub.
-2. **Owner:** add an authorized `OPENAI_API_KEY` to `.env`. **Codex:** restart and
-   verify a real proposal/calculation with the account's available models.
+2. **Owner:** add Genius X1's authorized `OPENAI_API_KEY` to the private local
+   `.local/production-ai.env`. **Codex:** transfer only that value into this app's
+   server environment, recreate its app container, and verify a real calculation
+   with models the key can access. Do not copy another application's API key.
 3. **Codex:** investigate the remaining test failures and TypeScript errors as
    development work; preserve auth and deterministic calculation behavior.
-4. **Owner/Codex:** choose hosting when deployment is requested, rotate any old
-   exported signing secret still in use, and configure database/storage/email.
-5. **Codex:** follow `DEPLOYMENT.md`, verify the public service, and record the
-   actual hosting/release details. No live deployment is claimed now.
+4. **Owner/Codex:** configure this application's email/storage integrations when
+   needed, review remaining legacy branding, and add off-server backups. The
+   current daily backups cover the database on this VPS, not upload files.
+5. **Owner:** rotate any old exported signing secret still used elsewhere. This
+   deployment already uses newly generated, independent signing secrets.
