@@ -59,8 +59,19 @@ must never be reused as an automatic migration against an existing database.
 
 ## Credentials and backups
 
-Set a Genius X1 `OPENAI_API_KEY` in the server's `shared/app.env`, then recreate
-only its app service with the command above. Model access is required too.
+Genius X1's own `OPENAI_API_KEY` is configured in the root-only server file
+`shared/app.env`. Real Standard-mode generation and saved recalculation passed
+on 2026-09-13. Expert and PhD model access remain unverified.
+
+To rotate the key, update only that variable while preserving all other settings,
+then recreate the app service to load it:
+
+```sh
+cd /opt/geniusx1
+docker compose --env-file shared/app.env -f compose.production.yml up -d --no-deps --wait app
+```
+
+Never print environment values or include the file in an image/source archive.
 Configure SMTP separately before relying on password-reset email. Do not borrow
 another app's API keys or signing secrets.
 

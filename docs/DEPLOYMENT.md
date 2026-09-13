@@ -3,8 +3,8 @@
 The production target is **https://geniusx1.com** on the owner's CloudPanel VPS.
 Genius X1 uses its own Docker project, PostgreSQL database, secrets, and uploads.
 Read [the VPS operations guide](../deploy/README.md) for exact paths, release
-commands, backups, and rollback. Live AI and file-storage portability still need
-verification.
+commands, backups, and rollback. Standard-mode live AI is verified; Expert/PhD
+modes and file-storage portability still need verification.
 
 ## Current release
 
@@ -21,7 +21,14 @@ The verification calculation was deleted afterward. The browser rendered the
 actual Genius X1 workspace. Daily database backups are enabled through
 `geniusx1-backup.timer`; an initial backup passed its gzip integrity check.
 
-AI generation and email are not configured. Set only this app's credentials in
+The owner's OpenAI key was installed in the root-only production environment on
+2026-09-13, preserving every other setting. Only the Genius X1 app container was
+recreated. A real Standard-mode request generated a 20 N force calculation;
+editing mass recalculated it to 40 N, which persisted on reload. Version history
+responded, and the verification calculation was deleted afterward. Expert/PhD
+modes have not been tested with this key.
+
+Email remains unconfigured. Set only this app's credentials in
 `/opt/geniusx1/shared/app.env` and recreate its app container. Do not put secrets
 in Docker images or Git. The deployed app uses the production launcher and does
 not start or seed the native development database.

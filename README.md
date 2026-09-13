@@ -43,8 +43,9 @@ The server returns a clear configuration error until a key is available.
 
 Model access is also required. Standard mode reads the database settings in
 `server/services/genius-settings.ts`; Expert and PhD use the models defined there.
-A configured key does not prove access to every model. Live AI generation has
-not been tested in this checkout.
+A configured key does not prove access to every model. Standard-mode generation
+was verified on the public deployment on 2026-09-13. Expert and PhD remain
+unverified. A fresh local checkout still needs its own authorized key.
 
 ## Subsequent runs
 
@@ -93,4 +94,4 @@ For a new computer, give Codex the [copyable setup prompt](docs/CODEX-SETUP-PROM
 
 Read [DEPLOYMENT.md](docs/DEPLOYMENT.md) for production requirements, migration
 limitations, storage, and release steps. The application is deployed at
-[geniusx1.com](https://geniusx1.com); AI generation still needs its own API key.
+[geniusx1.com](https://geniusx1.com), with Standard-mode AI generation verified.

@@ -11,16 +11,20 @@ recalculation, reload, version history, and unauthenticated-access rejection wer
 verified. A request from the unrelated DeepFolder origin was rejected too.
 `www.geniusx1.com` is configured to redirect to the apex domain.
 
-AI generation still needs a Genius X1 `OPENAI_API_KEY`; no real AI call was made.
-The private server environment file is `/opt/geniusx1/shared/app.env`.
+Standard-mode AI generation is configured and verified with a real provider call.
+The generated force was 20 N; changing mass from 10 kg to 20 kg recalculated it
+to 40 N, and reload retained the result. Version history responded. Only the
+verification calculation was deleted afterward. Expert and PhD remain unverified.
+The key is in the root-only server file `/opt/geniusx1/shared/app.env`, supplied
+to the app container at runtime. Only the Genius X1 app container was recreated.
 The initial administrator login is saved privately on this workstation in
-`.local/production-login.txt`; `.local/production-ai.env` is the prepared local
-input file for the owner to enter the API key. Neither belongs in Git.
+`.local/production-login.txt`; `.local/production-ai.env` contains the owner's
+private key input. Neither belongs in Git or a source archive.
 
 The local Windows setup remains available at http://localhost:5000 using Node.js
 24 and an isolated native PostgreSQL 16 database.
 
-Verified without an AI key:
+Initial local checks without an AI key:
 
 - The Genius X1 workspace and sign-in page render.
 - The approved local admin can sign in.
@@ -81,8 +85,11 @@ backfill is disabled. Saved-work arithmetic still uses the real evaluator.
 - The separate database was initialized only after confirming zero public
   tables. A unique approved production admin was created. Daily database backups
   are enabled, and an initial compressed backup was created and checked.
-- No real AI call, scanned-PDF flow, remote storage, or email was verified. Do not
-  equate passing mocks/builds with those capabilities.
+- Real Standard-mode AI generation, deterministic recalculation, saved reload,
+  and version history passed on public HTTPS after installing the owner's key.
+  Private evidence is in `.local/production-ai-evidence.json` on this workstation.
+- Expert/PhD modes, scanned-PDF flow, remote storage, and email remain unverified.
+  Do not equate passing mocks/builds with those capabilities.
 
 Use `npm test` for an isolated temporary database, not raw Vitest pointed at
 development or production data. Tests/benchmarks outside this wrapper need
@@ -110,14 +117,11 @@ this application: its pnpm workspace and schema assumptions are different.
    GitHub app has owner access, but automatic approval review rejected its upload
    because the request exceeded its 200,000-byte review limit. The changes are
    committed locally and are not yet available by pulling GitHub.
-2. **Owner:** add Genius X1's authorized `OPENAI_API_KEY` to the private local
-   `.local/production-ai.env`. **Codex:** transfer only that value into this app's
-   server environment, recreate its app container, and verify a real calculation
-   with models the key can access. Do not copy another application's API key.
-3. **Codex:** investigate the remaining test failures and TypeScript errors as
+2. **Codex:** investigate the remaining test failures and TypeScript errors as
    development work; preserve auth and deterministic calculation behavior.
-4. **Owner/Codex:** configure this application's email/storage integrations when
-   needed, review remaining legacy branding, and add off-server backups. The
+3. **Owner/Codex:** verify Expert/PhD model access and configure this application's
+   email/storage integrations when needed, review remaining legacy branding,
+   and add off-server backups. The
    current daily backups cover the database on this VPS, not upload files.
-5. **Owner:** rotate any old exported signing secret still used elsewhere. This
+4. **Owner:** rotate any old exported signing secret still used elsewhere. This
    deployment already uses newly generated, independent signing secrets.
