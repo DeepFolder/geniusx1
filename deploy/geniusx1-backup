@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+readonly root=/opt/geniusx1
+install -d -m 0700 "$root/backups"
+exec 9>"$root/backups/.lock"
+flock -n 9 || exit 0
+readonly target="$root/backups/geniusx1-$(date -u +%Y%m%dT%H%M%SZ).sql.gz"
+readonly pending="$target.partial"
+trap 'rm -f -- "$pending"' EXIT
+docker compose --env-file "$root/shared/app.env" -f "$root/compose.production.yml" \
+  exec -T postgres pg_dump -U geniusx1 -d geniusx1 --no-owner --no-acl | gzip > "$pending"
+gzip -t "$pending"
+mv -- "$pending" "$target"
+find "$root/backups" -maxdepth 1 -type f -name 'geniusx1-*.sql.gz' -mtime +14 -delete
+echo "Genius X1 database backup completed."

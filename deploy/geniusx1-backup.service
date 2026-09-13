@@ -1,0 +1,9 @@
+[Unit]
+Description=Back up the Genius X1 database
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/geniusx1-backup
+Nice=10
