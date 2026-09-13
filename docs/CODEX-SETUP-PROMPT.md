@@ -10,14 +10,14 @@ Genius X1 is an engineering calculation workspace. It turns questions into
 editable calculation documents with inputs, equations, results, and references.
 The server performs the numerical calculations.
 
-1. Check Git and Node.js 24 with npm. Install missing prerequisites using the
+1. Check Git, Node.js 24, and npm 11. Install missing prerequisites using the
    appropriate method for this operating system. Ensure npm uses Node.js 24 too.
 
-2. Clone https://github.com/DeepFolder/geniusx1.git on the application branch
-   export/genius-x1-working-app. The default master branch is an old starter.
+2. Clone https://github.com/DeepFolder/geniusx1.git on the main branch.
+   The historical master branch is an old starter.
    If the current project folder is empty, clone directly into it:
 
-   git clone --branch export/genius-x1-working-app https://github.com/DeepFolder/geniusx1.git .
+   git clone --branch main https://github.com/DeepFolder/geniusx1.git .
 
    If this is already the same repository, check Git status, preserve local
    changes, fetch, and update the application branch without overwriting work.

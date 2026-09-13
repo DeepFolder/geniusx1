@@ -4,12 +4,9 @@ Copy the prompt below into your colleague's Codex workspace when the reviewed
 changes are ready to publish. This authorizes a production update when the prompt
 is used; writing this document does not deploy anything.
 
-Before the first colleague deployment, publish this workstation's deployment
-setup to the application branch. On 2026-09-13, GitHub's latest commit was
-`b602fb3552d6261f6dd37a87573f53931892c5ec`; it did not include our Dockerfile,
-production compose file, or deployment instructions. Its changes and the local
-deployment commits must be reconciled without discarding either side's work.
-The colleague also needs GitHub write access and an SSH key authorized by the
+Use `main` for new work and releases. Check the current publication status in
+`docs/PROJECT.md` before the first colleague handoff. The colleague needs GitHub
+write access and an SSH key authorized by the
 VPS owner. Git does not provide server access or production credentials.
 
 ```text
@@ -19,7 +16,7 @@ Pushing Git alone does not deploy this app; use its existing Docker deployment.
 
 Project and access:
 - Repository: https://github.com/DeepFolder/geniusx1.git
-- Application branch: export/genius-x1-working-app. master is an old starter.
+- Application branch: main. master is an old starter.
 - Hostinger VPS: 69.62.119.45, ID 1812633, owned by albertsalicunaj.
   Do not use the mikelkrasniqi hosting account.
 - CloudPanel is already installed. Genius X1 is independent of DeepFolder.
@@ -31,7 +28,7 @@ Project and access:
   Never request private keys, passwords, or API keys in chat.
 
 1. Inspect Git status and preserve existing work. If this is a fresh workspace,
-   clone the repository on export/genius-x1-working-app. Fetch the current remote
+   clone the repository on main. Fetch the current remote
    branch and review any divergence before integrating changes. Read AGENTS.md,
    README.md, docs/PROJECT.md, docs/DEPLOYMENT.md, and deploy/README.md.
    Confirm Dockerfile and deploy/compose.production.yml exist. If they are
@@ -39,7 +36,7 @@ Project and access:
    first. Do not invent replacement infrastructure or deploy an older export.
 
 2. Trace the changed code's callers, dependencies, authentication, and database
-   impact. Use Node.js 24 and the locked npm dependencies. Follow the README for
+   impact. Use Node.js 24, npm 11, and the locked dependencies. Follow the README for
    fresh local setup. Run the relevant isolated tests through npm test, the type
    check, build, and git diff --check. Compare failures with the documented
    baseline and fix regressions. Never use production data for tests, format

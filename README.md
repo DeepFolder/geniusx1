@@ -6,11 +6,11 @@ charts, and references. The server computes numerical results from expressions.
 
 ## First checkout
 
-Use **Node.js 24** and npm. The application is on the branch below; `master`
+Use **Node.js 24** and **npm 11**. The application branch is `main`; `master`
 still contains the unrelated component-preview starter.
 
 ```sh
-git clone --branch export/genius-x1-working-app https://github.com/DeepFolder/geniusx1.git
+git clone --branch main https://github.com/DeepFolder/geniusx1.git
 cd geniusx1
 npm ci
 npm run setup

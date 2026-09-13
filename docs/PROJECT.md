@@ -39,7 +39,7 @@ Initial local checks without an AI key:
 
 ## Setup delivered
 
-Use `npm ci`, `npm run setup`, and `npm run dev` with Node.js 24.
+Use `npm ci`, `npm run setup`, and `npm run dev` with Node.js 24 and npm 11.
 The lock file was verified with clean `npm ci` on Windows and Linux. The VPS's
 npm 11 also required 17 missing Tailwind Oxide/Lightning CSS platform records;
 those exact versions were restored, leaving every existing package record intact.
@@ -90,6 +90,9 @@ backfill is disabled. Saved-work arithmetic still uses the real evaluator.
   Private evidence is in `.local/production-ai-evidence.json` on this workstation.
 - Expert/PhD modes, scanned-PDF flow, remote storage, and email remain unverified.
   Do not equate passing mocks/builds with those capabilities.
+- Main-branch reconciliation: npm 11 accepted the merged lock; the production
+  build and 235 unit/fixture tests passed. The same 292 TypeScript errors remain.
+  No application dependencies were upgraded, and the VPS was not redeployed.
 
 Use `npm test` for an isolated temporary database, not raw Vitest pointed at
 development or production data. Tests/benchmarks outside this wrapper need
@@ -97,18 +100,21 @@ separate configuration review.
 
 ## Source context
 
-The application branch is `export/genius-x1-working-app` in
-https://github.com/DeepFolder/geniusx1.git. The initial `master` checkout was only
-a component-preview starter. The histories were not merged, and the repository's
-default branch was not changed. Colleagues must select the application branch;
-the README gives the exact clone command.
+The canonical application branch is prepared locally as `main` in
+https://github.com/DeepFolder/geniusx1.git. Its history includes remote `main`,
+the complete application export, the remote setup commit `b602fb3`, and the
+verified local/VPS setup. Publication and the GitHub default-branch switch are
+pending. Do not tell a colleague to pull until those are verified.
 
-The remote branch advanced to `b602fb3552d6261f6dd37a87573f53931892c5ec` on the
-latest fetch. It contains an additional local/Replit setup commit but not the
-Docker deployment files used here. The remote and local branches have diverged;
-review and reconcile both before publishing, without force-pushing or deploying
-the older source over the live app. The colleague's release prompt is
-`docs/CODEX-DEPLOY-PROMPT.md`; GitHub and SSH access must be provided separately.
+The merge retains the portable launcher, private local database, and removed
+Replit instructions. It includes the remote npm 11 installer policy and Linux
+package metadata without upgrading dependencies. The install-script allowlist
+also covers the locked native PostgreSQL packages required by fresh setup.
+The Windows port fix was already covered by the tested launcher/server setup.
+`master` remains the unrelated component-preview starter. Use `main` for new
+work; the former application branch is `export/genius-x1-working-app`.
+The colleague's release prompt is `docs/CODEX-DEPLOY-PROMPT.md`; GitHub and SSH
+access must be provided separately. Publishing source does not redeploy the VPS.
 
 Earlier starter edits are preserved in the local Git stash named
 "Before importing actual Genius X1 app on 2026-09-13". Old build/dependency folders

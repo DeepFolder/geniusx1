@@ -3,12 +3,12 @@
 ## First actions
 
 Read `README.md`, `docs/PROJECT.md`, and `docs/DEPLOYMENT.md`. Check Git status
-and preserve local changes. Work from `export/genius-x1-working-app`; the
+and preserve local changes. Work from `main`; the
 repository's `master` branch is an unrelated component-preview starter.
 
 When asked to run the app, do the work:
 
-1. Check `node --version`. Use Node.js 24 and npm with `package-lock.json`.
+1. Check `node --version`. Use Node.js 24 and npm 11 with `package-lock.json`.
    When using a bundled desktop runtime, use its Node executable and npm CLI
    consistently. Windows `npm.cmd` can select a different Node installation.
 2. On a fresh checkout run `npm ci`, then `npm run setup`. Setup creates native
