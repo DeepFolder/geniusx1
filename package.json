@@ -4,7 +4,8 @@
   "type": "module",
   "license": "MIT",
   "engines": {
-    "node": ">=24 <25"
+    "node": ">=24 <25",
+    "npm": "11.x"
   },
   "scripts": {
     "setup": "node scripts/setup-local.mjs",
@@ -192,5 +193,21 @@
     "@esbuild-kit/core-utils": {
       "esbuild": "^0.25.4"
     }
+  },
+  "allowScripts": {
+    "@embedded-postgres/darwin-arm64@16.14.0-beta.17": true,
+    "@embedded-postgres/darwin-x64@16.14.0-beta.17": true,
+    "@embedded-postgres/linux-arm@16.14.0-beta.17": true,
+    "@embedded-postgres/linux-arm64@16.14.0-beta.17": true,
+    "@embedded-postgres/linux-ia32@16.14.0-beta.17": true,
+    "@embedded-postgres/linux-ppc64@16.14.0-beta.17": true,
+    "@embedded-postgres/linux-x64@16.14.0-beta.17": true,
+    "@embedded-postgres/windows-x64@16.14.0-beta.17": true,
+    "bcrypt@6.0.0": true,
+    "bufferutil@4.0.8": true,
+    "es5-ext@0.10.64": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.27.7": true,
+    "fsevents@2.3.3": true
   }
 }
