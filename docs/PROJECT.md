@@ -103,11 +103,13 @@ separate configuration review.
 
 ## Source context
 
-The canonical application branch is prepared locally as `main` in
-https://github.com/DeepFolder/geniusx1.git. Its history includes remote `main`,
-the complete application export, the remote setup commit `b602fb3`, and the
-verified local/VPS setup. Publication and the GitHub default-branch switch are
-pending. Do not tell a colleague to pull until those are verified.
+The canonical application branch is `main` in
+https://github.com/DeepFolder/geniusx1.git, and GitHub's default branch is `main`.
+The reconciled application and deployment setup have been published. Its history
+includes the original remote `main`, the complete application export, the remote
+setup commit `b602fb3`, and the verified local/VPS setup. The former application
+branch was advanced to the same release for existing checkouts. Colleagues can
+clone the repository normally or explicitly select `main` using the README.
 
 The merge retains the portable launcher, private local database, and removed
 Replit instructions. It includes the remote npm 11 installer policy and Linux
@@ -126,18 +128,11 @@ this application: its pnpm workspace and schema assumptions are different.
 
 ## Remaining work, in order
 
-1. **Owner:** sign the GitHub CLI into an account with repository write access
-   (for example, `gh auth login --hostname github.com --git-protocol https --web`
-   and select DeepFolder). **Codex:** publish the reviewed local commits afterward.
-   The current Git CLI account, mikelkra, has read-only access. The connected
-   GitHub app has owner access, but automatic approval review rejected its upload
-   because the request exceeded its 200,000-byte review limit. The changes are
-   committed locally and are not yet available by pulling GitHub.
-2. **Codex:** investigate the remaining test failures and TypeScript errors as
+1. **Codex:** investigate the remaining test failures and TypeScript errors as
    development work; preserve auth and deterministic calculation behavior.
-3. **Owner/Codex:** verify Expert/PhD model access and configure this application's
+2. **Owner/Codex:** verify Expert/PhD model access and configure this application's
    email/storage integrations when needed, review remaining legacy branding,
    and add off-server backups. The
    current daily backups cover the database on this VPS, not upload files.
-4. **Owner:** rotate any old exported signing secret still used elsewhere. This
+3. **Owner:** rotate any old exported signing secret still used elsewhere. This
    deployment already uses newly generated, independent signing secrets.

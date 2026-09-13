@@ -4,10 +4,10 @@ Copy the prompt below into your colleague's Codex workspace when the reviewed
 changes are ready to publish. This authorizes a production update when the prompt
 is used; writing this document does not deploy anything.
 
-Use `main` for new work and releases. Check the current publication status in
-`docs/PROJECT.md` before the first colleague handoff. The colleague needs GitHub
-write access and an SSH key authorized by the
-VPS owner. Git does not provide server access or production credentials.
+Use the published `main` branch for new work and releases. The colleague needs
+GitHub write access and an SSH key authorized by the VPS owner. Git does not
+provide server access or production credentials. Read `docs/PROJECT.md` for the
+current source and live-deployment status.
 
 ```text
 Publish my reviewed Genius X1 changes to GitHub and deploy them to the existing
