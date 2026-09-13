@@ -93,6 +93,9 @@ backfill is disabled. Saved-work arithmetic still uses the real evaluator.
 - Main-branch reconciliation: npm 11 accepted the merged lock; the production
   build and 235 unit/fixture tests passed. The same 292 TypeScript errors remain.
   No application dependencies were upgraded, and the VPS was not redeployed.
+- A fresh source copy passed an actual clean npm 11 install, native PostgreSQL
+  initialization, local administrator creation, and production build. This used
+  its own local database on port 55433; existing databases were left untouched.
 
 Use `npm test` for an isolated temporary database, not raw Vitest pointed at
 development or production data. Tests/benchmarks outside this wrapper need
