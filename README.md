@@ -94,6 +94,8 @@ For a new computer, give Codex the [copyable setup prompt](docs/CODEX-SETUP-PROM
 For publishing changes to the existing VPS, use the
 [copyable deployment prompt](docs/CODEX-DEPLOY-PROMPT.md), including its access
 and source-publication prerequisites. A Git push alone does not update the site.
+That document also includes a short standing instruction to make future requests
+to push application changes include the deployment and live verification.
 
 Read [DEPLOYMENT.md](docs/DEPLOYMENT.md) for production requirements, migration
 limitations, storage, and release steps. The application is deployed at

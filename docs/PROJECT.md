@@ -120,6 +120,10 @@ The Windows port fix was already covered by the tested launcher/server setup.
 work; the former application branch is `export/genius-x1-working-app`.
 The colleague's release prompt is `docs/CODEX-DEPLOY-PROMPT.md`; GitHub and SSH
 access must be provided separately. Publishing source does not redeploy the VPS.
+The deployment prompt includes a short instruction a colleague can adopt for
+future application-change pushes. `AGENTS.md` requires agents to complete and
+verify an authorized release after pushing, while keeping GitHub-only and
+documentation-only work separate from a live app update.
 
 Earlier starter edits are preserved in the local Git stash named
 "Before importing actual Genius X1 app on 2026-09-13". Old build/dependency folders

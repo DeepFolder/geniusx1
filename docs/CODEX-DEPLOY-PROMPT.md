@@ -9,6 +9,41 @@ GitHub write access and an SSH key authorized by the VPS owner. Git does not
 provide server access or production credentials. Read `docs/PROJECT.md` for the
 current source and live-deployment status.
 
+## Short instruction for the colleague's Codex
+
+Paste this once to make release follow-through part of that Codex task's
+instructions. GitHub still has no automatic deployment hook; Codex carries out
+the deployment when asked. The full procedure follows below.
+
+```text
+For Genius X1, when I ask you to push application changes to main, also deploy
+those reviewed changes to https://geniusx1.com and verify the live release.
+If I already pushed them and ask you to deploy, use the exact reviewed commit
+after confirming it is on origin/main. If I explicitly request GitHub only,
+respect that. Documentation-only pushes do not need an app rebuild.
+
+Read AGENTS.md, docs/PROJECT.md, docs/DEPLOYMENT.md, and deploy/README.md. Use
+the existing /opt/geniusx1 Docker deployment on 69.62.119.45, owned by
+albertsalicunaj. Preserve Genius X1's production environment, database, uploads,
+and HTTPS, and keep the other applications separate.
+
+After the push, build the exact commit, back up the database, apply only required
+reviewed migrations, and recreate only the Genius X1 app service. Check the live
+build version, database readiness, sign-in, changed feature, and calculation
+save/recalculation/reload. I authorize one small real Standard-mode AI calculation
+for the release check; remove only that verification calculation afterward.
+
+If verification fails, follow the documented rollback procedure. If GitHub or
+SSH access is missing, finish independent preparation and tell me exactly what
+access the owner must provide. Keep credentials out of chat and Git.
+
+Do not stop at "pushed successfully." Update the deployment record and tell me
+separately whether the changes are on GitHub and whether they are live, verified,
+and available to users at https://geniusx1.com.
+```
+
+## Full release procedure
+
 ```text
 Publish my reviewed Genius X1 changes to GitHub and deploy them to the existing
 production app at https://geniusx1.com. Carry out the deployment and verify it.

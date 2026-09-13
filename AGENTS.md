@@ -95,6 +95,26 @@ For a colleague's release handoff, use `docs/CODEX-DEPLOY-PROMPT.md`. Confirm th
 remote application branch contains the deployment setup and that this computer
 has authorized GitHub/SSH access. A Git push alone does not deploy the app.
 
+## After pushing a release
+
+When deployment is authorized by the current request or the requester's standing
+instructions, continue after the Git push until the release is verified live.
+Follow `docs/CODEX-DEPLOY-PROMPT.md` and `deploy/README.md`: verify the pushed
+commit, build that exact source, back up the database, apply required reviewed
+migrations, update `APP_IMAGE`, and recreate only Genius X1's app service.
+
+Check the public build version, database readiness, sign-in, the changed feature,
+and calculation save/recalculation/reload. Perform the bounded real AI check when
+authorized. Record the deployed commit and results; report GitHub publication
+and live deployment separately. If verification fails, follow the documented
+rollback procedure. If access is missing, finish independent preparation and
+state the exact missing access; do not call the release complete.
+
+The short standing instruction in `docs/CODEX-DEPLOY-PROMPT.md` lets a colleague
+explicitly define future application-change push requests to include deployment.
+Respect requests limited to GitHub. Documentation-only pushes do not require an
+app rebuild; do not create an automatic deployment hook for this workflow.
+
 ## Handoff
 
 Update the project record with verified behavior and remaining work. Use short,
