@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+# Benchmark run reports — only baseline.json is committed
+benchmark-results/run-*.json
+# Build-time git SHA — generated during deployment build step
+.build-sha
