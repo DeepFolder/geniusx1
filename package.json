@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": "24.x",
+    "npm": "11.x"
+  },
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
@@ -188,5 +192,13 @@
     "@esbuild-kit/core-utils": {
       "esbuild": "^0.25.4"
     }
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true,
+    "bufferutil@4.0.8": true,
+    "es5-ext@0.10.64": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.27.7": true,
+    "fsevents@2.3.3": true
   }
 }

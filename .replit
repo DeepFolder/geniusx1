@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "python-3.11", "postgresql-16"]
+modules = ["nodejs-24", "web", "python-3.11", "postgresql-16"]
 run = "npm run dev"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
@@ -55,7 +55,6 @@ EMBEDDING_MODEL = "text-embedding-3-small"
 ENABLE_WEB_SEARCH = "true"
 ENABLE_FILESYSTEM_SCAN = "true"
 AI_AGENT_TEMPERATURE = "0.2"
-JWT_SECRET = "4WpJAb7JBvkWIc19VQvxdjnn26T6hhhzHzg37sxVqSo="
 
 [userenv.production]
 NODE_ENV = "production"
