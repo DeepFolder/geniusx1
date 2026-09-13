@@ -10,8 +10,9 @@ import {
 import { eq, and } from "drizzle-orm";
 import { documentChunking, type DocumentChunk } from "./document-chunking.js";
 import OpenAI from 'openai';
+import { createLazyOpenAI } from "./openai-client.js";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = createLazyOpenAI();
 
 async function generateMultiProviderEmbedding(text: string): Promise<number[]> {
   const response = await openai.embeddings.create({

@@ -72,6 +72,7 @@ import connectPg from "connect-pg-simple";
 import { generateAuthToken, validateAuthToken, revokeAuthToken } from "./simple-auth";
 import bcrypt from "bcrypt";
 import OpenAI from 'openai';
+import { createLazyOpenAI } from "./services/openai-client.js";
 // PDF parsing will be done dynamically to avoid import issues
 import { recommendationEngine, UserBehavior, RecommendationScore } from "./services/recommendation-engine";
 // RSS parsing imports
@@ -152,9 +153,7 @@ export async function autoExtractAndPersistSpecs(
 import { onCompanyCreated, onCompanyUpdated, onProductCreated, onProductUpdated } from "./services/embedding-hooks.js";
 
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = createLazyOpenAI();
 
 // Search activity cache to prevent logging duplicate searches within a time window
 const searchActivityCache = new Map<string, { query: string; timestamp: number }>();

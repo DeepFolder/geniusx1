@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { createLazyOpenAI } from "./openai-client.js";
 import { eq, desc, and, inArray } from 'drizzle-orm';
 import { db } from '../db.js';
 import { companies, products, companyDocuments, users, userDownloads, searchQueries } from '../../shared/schema.js';
@@ -15,9 +16,7 @@ try {
 }
 
 // Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = createLazyOpenAI();
 
 // Types for AI service
 export interface ChatMessage {
@@ -1219,7 +1218,9 @@ export function getMetrics() {
 
 // Initialize the service
 console.log('🤖 Initializing AI Service...');
-initializeEmbeddingsIndex().catch(console.error);
+if (process.env.OPENAI_API_KEY && process.env.ENABLE_STARTUP_AI_JOBS !== "false") {
+  initializeEmbeddingsIndex().catch(console.error);
+}
 
 // Cleanup conversations every hour
 setInterval(cleanupConversations, 60 * 60 * 1000);

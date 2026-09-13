@@ -3,8 +3,7 @@ const { Pool } = pg;
 import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from "@shared/schema";
 
-// Always prefer Replit's built-in DATABASE_URL (never suspends).
-// Fall back to NEON_DATABASE_URL only if DATABASE_URL is absent.
+// Use the configured database, with NEON_DATABASE_URL retained for compatibility.
 const connectionString = process.env.DATABASE_URL || process.env.NEON_DATABASE_URL;
 
 if (!connectionString) {
@@ -13,15 +12,15 @@ if (!connectionString) {
   );
 }
 
-// Helium (Replit's built-in DB) runs locally without SSL.
-// Production databases require SSL. As per Replit migration docs:
-// https://docs.replit.com/cloud-services/storage-and-databases/database-upgrade
+// Local PostgreSQL uses loopback without TLS. Hosted databases verify certificates.
+// DATABASE_SSL=disable is an explicit option for a private/local database connection.
 export const pool = new Pool({
   connectionString,
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 10000,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: process.env.DATABASE_SSL === 'disable' ? false
+    : process.env.NODE_ENV === 'production' ? { rejectUnauthorized: true } : false,
 });
 
 pool.on('error', (err) => {

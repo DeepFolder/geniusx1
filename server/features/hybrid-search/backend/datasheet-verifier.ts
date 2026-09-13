@@ -1,10 +1,11 @@
 import OpenAI from 'openai';
+import { createLazyOpenAI } from "../../../services/openai-client.js";
 import { fetchAndExtractPdf, type PdfFetchResult } from '../../../services/web-pdf-fetcher';
 import type { UnifiedProduct, ProductAttribute, InterpretedRequirement } from './types';
 import { getAgentSettings } from '../agents/admin/settings-storage';
 
 // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = createLazyOpenAI();
 
 /** Top-N web candidates to verify per search. Configurable via env (default 5, hard cap 20). */
 const MAX_VERIFY_PRODUCTS = (() => {

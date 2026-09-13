@@ -1,0 +1,19 @@
+name: geniusx1-local
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: geniusx1
+      POSTGRES_DB: geniusx1
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run npm run setup first}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geniusx1 -d geniusx1"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+volumes:
+  postgres-data:

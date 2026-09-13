@@ -1,11 +1,10 @@
 import OpenAI from 'openai';
+import { createLazyOpenAI } from "./openai-client.js";
 import { db } from '../db.js';
 import { searchEmbeddings, companies, products } from '../../shared/schema.js';
 import { eq, and, sql, or, ilike } from 'drizzle-orm';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = createLazyOpenAI();
 
 const EMBEDDING_MODEL = 'text-embedding-3-small';
 const EMBEDDING_DIMENSIONS = 1536;

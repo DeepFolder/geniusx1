@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { createLazyOpenAI } from "./openai-client.js";
 import { z } from "zod";
 import {
   geniusCalculationDocSchema,
@@ -27,7 +28,7 @@ import {
   qualityModesAreExclusive,
 } from "./genius-settings.js";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = createLazyOpenAI();
 
 /** A provider call exceeded its explicit server-side budget. */
 export class GeniusStageTimeoutError extends Error {

@@ -14,6 +14,7 @@ import {
   type GeniusAttachment,
 } from "../../shared/schema.js";
 import { requireAuth } from "../auth-middleware.js";
+import { requireAI } from "../middleware/require-ai.js";
 import { getGeniusSettings, saveGeniusSettings } from "../services/genius-settings.js";
 import {
   generateCalculation,
@@ -620,7 +621,7 @@ const generateSchema = withQualityMode({
   // references and user intent across the whole conversation.
   chatHistory: chatHistorySchema,
 });
-router.post("/generate", async (req: any, res) => {
+router.post("/generate", requireAI, async (req: any, res) => {
   const parsed = generateSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "A prompt is required" });
 
@@ -788,7 +789,7 @@ router.post("/generate", async (req: any, res) => {
 const explainStepSchema = withQualityMode({
   question: z.string().min(1).max(500),
 });
-router.post("/:id/steps/:stepId/explain", async (req: any, res) => {
+router.post("/:id/steps/:stepId/explain", requireAI, async (req: any, res) => {
   const id = Number(req.params.id);
   if (!Number.isInteger(id)) return res.status(400).json({ error: "Invalid id" });
   const parsed = explainStepSchema.safeParse(req.body);
@@ -858,7 +859,7 @@ const messageSchema = withQualityMode({
   // Full chat transcript for AI context.
   chatHistory: chatHistorySchema,
 });
-router.post("/:id/message", async (req: any, res) => {
+router.post("/:id/message", requireAI, async (req: any, res) => {
   const id = Number(req.params.id);
   if (!Number.isInteger(id)) return res.status(400).json({ error: "Invalid id" });
   const parsed = messageSchema.safeParse(req.body);
@@ -1170,7 +1171,7 @@ const examplePlanBodySchema = withQualityMode({
     method: z.string().min(1).max(6000),
   }),
 });
-router.post("/plan/example", async (req: any, res) => {
+router.post("/plan/example", requireAI, async (req: any, res) => {
   const parsed = examplePlanBodySchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "A calculation explanation is required" });
   try {
@@ -1188,7 +1189,7 @@ router.post("/plan/example", async (req: any, res) => {
     return res.status(500).json({ error: "Could not prepare a calculation example. Please try again." });
   }
 });
-router.post("/plan", async (req: any, res) => {
+router.post("/plan", requireAI, async (req: any, res) => {
   const parsed = planBodySchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "A text description is required" });
   try {
@@ -1207,7 +1208,7 @@ router.post("/plan", async (req: any, res) => {
   }
 });
 
-router.post("/upload", (req: any, res) => {
+router.post("/upload", requireAI, (req: any, res) => {
   geniusUpload.single("file")(req, res, async (multerErr: any) => {
     if (multerErr) {
       const msg =
@@ -1359,7 +1360,7 @@ const refineSchema = withQualityMode({
   proposal: geniusTaskProposalSchema,
   message: z.string().min(1).max(4000),
 });
-router.post("/proposal/refine", async (req: any, res) => {
+router.post("/proposal/refine", requireAI, async (req: any, res) => {
   const parsed = refineSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "A proposal and message are required" });
   try {
@@ -1391,7 +1392,7 @@ const buildSchema = withQualityMode({
   // not just a synthetic "Approved" placeholder.
   chatHistory: chatHistorySchema,
 });
-router.post("/proposal/build", async (req: any, res) => {
+router.post("/proposal/build", requireAI, async (req: any, res) => {
   const parsed = buildSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "A proposal is required" });
 

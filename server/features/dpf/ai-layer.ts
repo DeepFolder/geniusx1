@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { createLazyOpenAI } from "../../services/openai-client.js";
 
 export interface AiData {
   format: string;
@@ -14,7 +15,7 @@ export interface AiData {
   source_pages: number;
 }
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const client = createLazyOpenAI();
 
 export async function generateAiLayer(text: string, filename: string): Promise<AiData> {
   const truncated = text.slice(0, 12000);

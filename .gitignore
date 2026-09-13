@@ -1,4 +1,11 @@
 node_modules
+/.local/
+/.cache/
+/.pnpm-store/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
 dist
 .DS_Store
 server/public

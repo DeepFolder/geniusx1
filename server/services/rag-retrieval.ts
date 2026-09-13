@@ -1,10 +1,11 @@
 import OpenAI from "openai";
+import { createLazyOpenAI } from "./openai-client.js";
 import { db } from "../db.js";
 import { documentChunks, documentIndex, companies, products } from "../../shared/schema.js";
 import { eq, and, or, sql, inArray } from "drizzle-orm";
 import { documentEmbedding } from "./document-embedding.js";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = createLazyOpenAI();
 
 export interface RetrievedChunk {
   chunkId: number;

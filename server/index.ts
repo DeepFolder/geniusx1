@@ -344,14 +344,11 @@ function sanitizeLogData(data: any): any {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = process.env.PORT || 5000;
+  // Serve both the API and the client on the same port.
+  const port = Number(process.env.PORT || 5000);
   server.listen({
     port,
-    host: "0.0.0.0",
-    reusePort: true,
+    host: process.env.HOST || "0.0.0.0",
   }, () => {
     // log(`serving on port ${port}`);
     console.log(`serving on port ${port}`);
@@ -364,9 +361,11 @@ function sanitizeLogData(data: any): any {
     });
 
     // Initialize semantic search embeddings in background (non-blocking)
-    ensureSemanticSearchInitialized().catch((error) => {
-      console.error('Failed to initialize semantic search:', error);
-    });
+    if (process.env.OPENAI_API_KEY && process.env.ENABLE_STARTUP_AI_JOBS !== "false") {
+      ensureSemanticSearchInitialized().catch((error) => {
+        console.error('Failed to initialize semantic search:', error);
+      });
+    }
 
     // Initialize model price cache from DB (seeds hardcoded values on first boot)
     import('./features/hybrid-search/connections/usage-tracking.js').then(({ initPriceCache }) => {
@@ -379,6 +378,7 @@ function sanitizeLogData(data: any): any {
     // that have a catalog_path but are missing either column.
     // Rate-limited to avoid hammering OpenAI or the file store at startup.
     (async () => {
+      if (!process.env.OPENAI_API_KEY || process.env.ENABLE_STARTUP_AI_JOBS === "false") return;
       try {
         const { db } = await import('./db.js');
         const { products } = await import('../shared/schema.js');

@@ -1,0 +1,86 @@
+# Genius X1: coding-agent instructions
+
+## First actions
+
+Read `README.md`, `docs/PROJECT.md`, and `docs/DEPLOYMENT.md`. Check Git status
+and preserve local changes. Work from `export/genius-x1-working-app`; the
+repository's `master` branch is an unrelated component-preview starter.
+
+When asked to run the app, do the work:
+
+1. Check `node --version`. Use Node.js 24 and npm with `package-lock.json`.
+   When using a bundled desktop runtime, use its Node executable and npm CLI
+   consistently. Windows `npm.cmd` can select a different Node installation.
+2. On a fresh checkout run `npm ci`, then `npm run setup`. Setup creates native
+   PostgreSQL, unique local secrets, and an approved local admin. Existing
+   settings/accounts are preserved. Custom databases use the manual README path.
+3. Run `npm run dev` in a long-running terminal. It starts the local database and
+   hosts UI and API together at **http://localhost:5000**.
+4. Open that URL and verify the Genius X1 workspace. For sign-in use
+   `.local/login.txt`. Never invent or hard-code credentials.
+5. If no `OPENAI_API_KEY` is configured, still run the app and explain that AI
+   generation needs a key in `.env` plus a restart. Never fabricate results or
+   claim live AI was tested with mocks.
+
+Do not start the old pnpm workspace or standalone Vite on port 5173.
+Do not restore the old starter stash. Subsequent runs need only `npm run dev`
+unless dependencies/schema changed. Leave a verified app running when requested.
+
+## Product and source map
+
+Genius X1 turns engineering questions into editable calculation documents with
+inputs, assumptions, equations, computed steps, results, charts, and references.
+The AI proposes equations; deterministic server-side evaluation performs arithmetic
+and dimensional-unit checks. History, versions, comments, and attachments are
+scoped to the authenticated owner.
+
+- `client/src/App.tsx`: active routes and authentication gates.
+- `client/src/pages/genius.tsx`, `client/src/features/genius/`: main workspace.
+- `server/index.ts`: middleware, API/frontend hosting, startup tasks.
+- `server/routes/genius.ts`: calculation API and ownership checks.
+- `server/services/genius-service.ts`: AI orchestration.
+- `server/services/genius-eval.ts`: expression evaluation and unit checks.
+- `server/services/genius-settings.ts`: Standard/Expert/PhD model choices.
+- `server/services/openai-client.ts`, `server/middleware/require-ai.ts`: lazy AI
+  initialization and actionable missing-key responses.
+- `shared/schema.ts`, `migrations/`: schemas and historical SQL migrations.
+- `server/db.ts`: PostgreSQL connection and retry behavior.
+- `scripts/setup-local.mjs`, `scripts/local-database.mjs`, `scripts/run.mjs`:
+  portable local setup and startup.
+- `scripts/test.mjs`: isolated database test runner.
+- `server/objectStorage.ts`, `server/objectAcl.ts`: storage/access control.
+- `tests/`: unit, integration, E2E, and benchmark suites.
+
+Legacy DeepFolder company/product/search modules remain in the backend import
+graph. Most have no active frontend route. Trace callers before removing them or
+describing them as current features. Storage still uses the original provider
+integration; deleting its dependencies alone breaks file handling.
+
+## Engineering rules
+
+- Do not use Prettier, `cargo fmt`, or whole-file automatic formatting.
+- Analyse proposals critically. Trace imports, callers, data contracts, auth,
+  tests, and deployment dependencies before changing code.
+- Preserve locked versions unless a change needs an update. Keep download URLs
+  public and native dependencies available across platforms.
+- Preserve deterministic arithmetic, source checks, and owner isolation.
+- Do not restore Replit agent instructions, package restrictions, or the removed
+  automatic `db:push --force` hook. Schema changes must be deliberate.
+- Keep credentials out of source. `.env`, `.local`, and login files stay private.
+  An exported signing secret remains in upstream history; use new secrets.
+- Use `npm test` for isolated local tests. Never run tests against production or
+  run paid AI benchmarks unintentionally. Generated local settings disable
+  startup AI indexing/backfill.
+- Run relevant tests, `npm run check`, `npm run build`, and `git diff --check`.
+  Report baseline failures honestly; a build is not a clean type check.
+- Preserve existing authorization. Do not ask again for authorized local setup,
+  fixes, or checks. Publish/provision external services only within user scope.
+  When asked to prepare work for a colleague to pull, make reviewed changes
+  available on the agreed Git branch.
+
+## Handoff
+
+Update the project record with verified behavior and remaining work. Use short,
+plain English: current status, finished work, what remains in order, and the
+user's exact next step. Distinguish local runtime, mocked tests, live AI calls,
+and public deployment. Do not make the user reread earlier sessions.

@@ -1,5 +1,9 @@
 import { vi } from "vitest";
 
+// All OpenAI calls in this project are mocked below. Satisfy the route's
+// configuration gate without loading any real development credentials.
+vi.stubEnv("OPENAI_API_KEY", "mocked-test-key");
+
 /**
  * Global Vitest setup — applied before every test file.
  *

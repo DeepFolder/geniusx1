@@ -5,7 +5,9 @@ const router = express.Router();
 
 // Initialize embeddings when AI routes are loaded
 console.log('🤖 Initializing AI Routes...');
-initializeEmbeddingsIndex().catch(console.error);
+if (process.env.OPENAI_API_KEY && process.env.ENABLE_STARTUP_AI_JOBS !== "false") {
+  initializeEmbeddingsIndex().catch(console.error);
+}
 
 // Unified AI Chat endpoint with streaming support
 router.post("/chat", async (req, res) => {

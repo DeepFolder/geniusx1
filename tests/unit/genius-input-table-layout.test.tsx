@@ -66,7 +66,7 @@ describe("Genius input table layout", () => {
   });
 
   it("defines one responsive symbol width and print-safe label wrapping", () => {
-    const stylesheet = readFileSync(resolve(process.cwd(), "client/src/index.css"), "utf8");
+    const stylesheet = readFileSync(resolve(process.cwd(), "client/src/index.css"), "utf8").replace(/\r\n/g, "\n");
 
     expect(stylesheet).toContain("--worksheet-symbol-column-width: 7rem");
     expect(stylesheet).toContain(".worksheet-aligned-table .worksheet-symbol-column");
