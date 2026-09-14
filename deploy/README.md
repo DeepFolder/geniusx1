@@ -4,6 +4,11 @@ Target: **https://geniusx1.com** on the owner's existing CloudPanel VPS.
 Genius X1 has a separate Docker Compose project, database, network, secrets, and
 upload volume. The other applications on the VPS are outside this deployment.
 
+Latest verified runtime: `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58` on
+2026-09-14. HTTPS sign-in, saved calculations, and a real Standard-mode text-PDF
+proposal with private file download passed. See `docs/DEPLOYMENT.md` for the
+verification and remaining limits.
+
 ## Server layout
 
 - `/opt/geniusx1/compose.production.yml`: installed copy of this repository's compose file.

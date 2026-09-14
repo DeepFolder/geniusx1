@@ -4,14 +4,28 @@ Updated: 2026-09-14.
 
 ## Current status
 
-The 14 September access investigation verified public HTTP redirects to HTTPS,
-the correct DNS address, open web ports, and healthy app/database containers.
-The reported console error came from a leftover development banner, while the
-401 responses were requests made before sign-in. The prepared fix removes all
-remaining Replit runtime integration, uses the app's own private persistent file
-storage, and waits for authentication before fetching owner-specific history.
-The local production build and 267 unit/fixture checks passed; the same 292
-baseline TypeScript errors remain. Production rollout is pending verification.
+The current live release is `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58`, verified
+on 14 September. All Replit runtime integration is removed: the external banner,
+storage SDK/bucket defaults, domain allowances, reset-link fallback, and old
+benchmark destination. Attachments use Genius X1's own private upload volume.
+Calculation history waits for sign-in and is cached separately for each owner.
+
+Public HTTP redirects to HTTPS, DNS resolves correctly, and the web ports and
+database are healthy. The owner suspects a workplace network restriction; that
+has not been independently confirmed. Guest `/api/auth/me` requests still
+correctly return 401. These responses do not indicate a port failure.
+
+HTTPS sign-in, authenticated history, save/recalculation/reload/version history,
+and a real Standard-mode text-PDF upload/proposal passed on the final release.
+The downloaded PDF matched its original bytes. Guest file access and direct
+access to stored bytes/metadata were rejected. Only the synthetic verification
+calculations and files were removed; the other hosted app retained its image.
+
+The upload check also exposed an existing PDF.js incompatibility with Node
+Buffer input. The parser now receives a plain byte-array copy, preserving the
+original upload and correctly reading compressed PDF objects. Local builds,
+267 initial unit/fixture checks, and 15 final focused checks passed. The final
+checks include three new PDF regressions; the same 292 TypeScript errors remain.
 
 The application is live at **https://geniusx1.com**, using its own Docker app,
 PostgreSQL database, network, secrets, and uploads on the owner's CloudPanel VPS.
@@ -86,7 +100,7 @@ backfill is disabled. Saved-work arithmetic still uses the real evaluator.
   query/result typing issues, and an old default compiler target. No broad
   TypeScript cleanup was attempted.
 - Build warnings remain for duplicate legacy storage methods and bundle size.
-- VPS production image build and public HTTPS smoke check: passed. Runtime app
+- Initial VPS production image build and public HTTPS smoke check: passed. Initial app
   commit: `67aabb0c9a0da1738c9dc1e3b1c31c71be1f43fb`. Later commits add deployment
   documentation and the separately installed backup scripts.
 - Relevant local suites were rerun for deployment: all 255 passed; the same 292
@@ -144,7 +158,7 @@ this application: its pnpm workspace and schema assumptions are different.
 1. **Codex:** investigate the remaining test failures and TypeScript errors as
    development work; preserve auth and deterministic calculation behavior.
 2. **Owner/Codex:** verify Expert/PhD model access and configure this application's
-   email/storage integrations when needed, review remaining legacy branding,
+   email when needed, verify scanned-PDF handling, review remaining legacy branding,
    and add off-server backups. The
    current daily backups cover the database on this VPS, not upload files.
 3. **Owner:** rotate any old exported signing secret still used elsewhere. This

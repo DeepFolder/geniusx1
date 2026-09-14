@@ -8,12 +8,23 @@ modes and scanned-PDF processing still need verification.
 
 ## Current release
 
-Verified live on 2026-09-13 at **https://geniusx1.com**. The app image is
-`geniusx1:67aabb0c9a0da1738c9dc1e3b1c31c71be1f43fb`, built from that committed
+Verified live on 2026-09-14 at **https://geniusx1.com**. The app image is
+`geniusx1:43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58`, built from that committed
 source and identified by `/api/build-info`. CloudPanel proxies to port 5081 on
 loopback and manages the Let's Encrypt certificate for the apex and `www`.
 The existing other application on the VPS retained its image, port, and healthy
 database connection throughout this deployment.
+
+This release removes the remaining Replit runtime integration and stores files
+on the app's own persistent upload volume. A real Standard-mode PDF proposal,
+byte-for-byte download, owner access, guest rejection, and blocked raw-storage
+paths passed over public HTTPS. The existing PDF parser now receives a plain
+byte-array copy instead of a Node Buffer, which fixes compressed-object parsing
+and preserves the original attachment. Scanned-PDF processing still needs a
+separate end-to-end check. The synthetic files and calculations were removed.
+The current app/data readiness and release version were verified after restart.
+No schema migration was required. Pre-release database and upload backups were
+created and checked; daily scheduled backups still cover only the database.
 
 HTTPS login, secure cookies, saving/recalculation/reload/version history, owner
 authentication, and missing-key behavior were tested against the public service.
