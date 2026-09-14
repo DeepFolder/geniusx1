@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { ArrowUp, Globe, Paperclip, Loader2, ClipboardList, Square, Camera, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { LoginModal } from "@/components/auth/LoginModal";
+import { Link } from "wouter";
 
 interface Props {
   onSend: (text: string) => void;
@@ -32,6 +33,10 @@ interface Props {
   canStop?: boolean;
   /** A saved historical worksheet must not start or change a calculation. */
   readOnly?: boolean;
+  /** Public previews can reuse the real composer without duplicating legal copy. */
+  showDisclaimer?: boolean;
+  /** Non-interactive embeds do not need to mount the authentication dialog. */
+  renderLoginModal?: boolean;
 }
 
 const ACCEPT_TYPES = new Set([
@@ -72,7 +77,7 @@ function useTypedPlaceholder(active: boolean) {
 }
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
@@ -82,7 +87,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-export function GeniusChatBar({ onSend, onSendDirect, onPlan, isSending, isPlanning, webSearch, onToggleWebSearch, expertMode, onToggleExpertMode, phdMode, onTogglePhdMode, onUpload, isUploading, hasCalc, hasPendingProposal, allProposalsDiscarded, isAuthenticated = true, onStop, canStop, readOnly = false }: Props) {
+export function GeniusChatBar({ onSend, onSendDirect, onPlan, isSending, isPlanning, webSearch, onToggleWebSearch, expertMode, onToggleExpertMode, phdMode, onTogglePhdMode, onUpload, isUploading, hasCalc, hasPendingProposal, allProposalsDiscarded, isAuthenticated = true, onStop, canStop, readOnly = false, showDisclaimer = true, renderLoginModal = true }: Props) {
   const [input, setInput] = useState("");
   const [focused, setFocused] = useState(false);
   const [planMode, setPlanMode] = useState(false);
@@ -506,11 +511,14 @@ export function GeniusChatBar({ onSend, onSendDirect, onPlan, isSending, isPlann
           </div>
         </div>
       </div>
-      <p className="mt-2 text-center text-[10px] text-gray-400 dark:text-gray-600">
-        {readOnly ? "Historical calculation — read only" : "Drop a file or paste an image anywhere in the box"}
-      </p>
+      {showDisclaimer && (
+        <p className="mt-2 text-center text-[10px] leading-4 text-gray-400 dark:text-gray-500">
+          {readOnly ? "Historical calculation — read only. " : "AI-assisted output may be wrong. Verify calculations, units, assumptions, sources, and applicable standards. "}
+          <Link href="/legal" className="underline underline-offset-2 hover:text-blue-600 dark:hover:text-blue-400">Engineering disclaimer</Link>
+        </p>
+      )}
 
-      <LoginModal open={showLoginModal} onOpenChange={setShowLoginModal} />
+      {renderLoginModal && <LoginModal open={showLoginModal} onOpenChange={setShowLoginModal} />}
     </div>
   );
 }

@@ -668,7 +668,7 @@ export default function AgentAdminPage() {
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Retry
               </Button>
-              <Link href="/">
+              <Link href="/workspace">
                 <Button variant="ghost" size="sm" className="text-muted-foreground">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to search
@@ -1881,7 +1881,7 @@ function UsageAnalytics() {
               <RefreshCw className="w-4 h-4 mr-2" />
               Refresh
             </Button>
-            <Link href="/">
+            <Link href="/workspace">
               <Button variant="ghost" size="sm" className="text-muted-foreground">
                 <Search className="w-4 h-4 mr-2" />
                 Genius<span className="text-blue-500">X1</span>

@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
-import { X, Calculator, Shield, LogIn, LogOut } from "lucide-react";
+import { X, Calculator, Home, Shield, LogIn, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { GeniusLogo } from "./GeniusLogo";
 
@@ -31,7 +31,8 @@ export function AppSidebar({ open, onClose, extra }: Props) {
   const isAdmin = user?.role === "admin";
 
   const items = [
-    { href: "/", label: "Calculations", description: "Engineering workspace", icon: Calculator, show: true },
+    { href: "/", label: "Home", description: "About Genius X1", icon: Home, show: true },
+    { href: "/workspace", label: "Calculations", description: "Engineering workspace", icon: Calculator, show: true },
     { href: "/admin", label: "Admin", description: "Settings & analytics", icon: Shield, show: isAdmin },
   ].filter((i) => i.show);
 

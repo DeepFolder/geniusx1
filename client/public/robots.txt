@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /workspace
+
+Sitemap: https://geniusx1.com/sitemap.xml

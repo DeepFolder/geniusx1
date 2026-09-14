@@ -34,7 +34,7 @@ function SourceBadge({ tier }: { tier: SourceTier }) {
   );
 }
 
-export function ResultsList({ doc }: { doc: GeniusCalculationDoc }) {
+export function ResultsList({ doc, showDisclaimer = true }: { doc: GeniusCalculationDoc; showDisclaimer?: boolean }) {
   if (!doc.results.length) return null;
   const [primary, ...rest] = doc.results;
   return (
@@ -104,12 +104,14 @@ export function ResultsList({ doc }: { doc: GeniusCalculationDoc }) {
         </div>
       </div>
     )}
-    <div className="flex items-start gap-2 mt-3 rounded-md border border-amber-200 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 px-3 py-2.5">
-      <AlertTriangle size={13} className="mt-0.5 flex-shrink-0 text-amber-500 dark:text-amber-400" />
-      <p className="text-[11px] italic leading-snug text-amber-800 dark:text-amber-300">
-        AI-generated calculations may contain errors. These calculations must be verified and approved by a qualified professional (engineer, scientist, or other relevant expert) before use in any real application.
-      </p>
-    </div>
+    {showDisclaimer && (
+      <div className="flex items-start gap-2 mt-3 rounded-md border border-amber-200 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 px-3 py-2.5">
+        <AlertTriangle size={13} className="mt-0.5 flex-shrink-0 text-amber-500 dark:text-amber-400" />
+        <p className="text-[11px] italic leading-snug text-amber-800 dark:text-amber-300">
+          AI-generated calculations may contain errors. These calculations must be verified and approved by a qualified professional (engineer, scientist, or other relevant expert) before use in any real application.
+        </p>
+      </div>
+    )}
     </TooltipProvider>
   );
 }

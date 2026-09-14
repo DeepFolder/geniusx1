@@ -1,166 +1,46 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LegalPageLayout } from "@/components/legal/legal-page-layout";
 
 export default function CookiePolicy() {
   return (
-    <div className="relative min-h-screen modern-4k-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-3xl">Cookie Policy</CardTitle>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-              Last updated: November 8, 2025
-            </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Version 1.0
-            </p>
-          </CardHeader>
-          <CardContent className="prose dark:prose-invert max-w-none space-y-6">
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">1. What Are Cookies</h2>
-              <p>
-                Cookies are small text files stored on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and enabling essential features.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">2. How We Use Cookies</h2>
-              <p>
-                DeepFolder uses cookies for the following purposes:
-              </p>
-            </section>
-
-            <section>
-              <h3 className="text-xl font-semibold mt-6 mb-3">2.1 Essential Cookies</h3>
-              <p>
-                These cookies are necessary for the Platform to function properly. They cannot be disabled.
-              </p>
-              <div className="mt-4">
-                <table className="min-w-full border border-gray-300 dark:border-gray-700">
-                  <thead>
-                    <tr className="bg-gray-100 dark:bg-gray-800">
-                      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left">Cookie Name</th>
-                      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left">Purpose</th>
-                      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left">Duration</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">connect.sid</td>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Session authentication - keeps you logged in</td>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Session (expires when you close browser or 7 days)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            <section>
-              <h3 className="text-xl font-semibold mt-6 mb-3">2.2 Functional Cookies</h3>
-              <p>
-                These cookies remember your preferences and choices to provide you with a personalized experience.
-              </p>
-              <div className="mt-4">
-                <table className="min-w-full border border-gray-300 dark:border-gray-700">
-                  <thead>
-                    <tr className="bg-gray-100 dark:bg-gray-800">
-                      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left">Purpose</th>
-                      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left">Examples</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Theme Preferences</td>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Dark mode/light mode selection</td>
-                    </tr>
-                    <tr>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Language Preferences</td>
-                      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Selected language</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">3. Third-Party Cookies</h2>
-              <p>
-                AI requests are processed by a server-side service:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li><strong>OpenAI:</strong> For AI-powered features (does not set cookies directly through our platform)</li>
-              </ul>
-              <p className="mt-4">
-                These third parties have their own privacy policies governing their use of cookies.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">4. What We Do NOT Use</h2>
-              <p>
-                DeepFolder does not use:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li><strong>Advertising cookies:</strong> We do not track you for advertising purposes</li>
-                <li><strong>Analytics cookies:</strong> We do not use third-party analytics tools like Google Analytics</li>
-                <li><strong>Social media cookies:</strong> We do not integrate social media tracking pixels</li>
-                <li><strong>Cross-site tracking:</strong> We do not track you across other websites</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">5. Managing Cookies</h2>
-              
-              <h3 className="text-xl font-semibold mt-6 mb-3">5.1 Browser Settings</h3>
-              <p>
-                Most browsers allow you to control cookies through their settings. You can:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li>Block all cookies</li>
-                <li>Block third-party cookies only</li>
-                <li>Delete cookies after each session</li>
-                <li>Allow cookies from specific websites</li>
-              </ul>
-              <p className="mt-4">
-                Please note that blocking essential cookies will prevent you from using key features of the Platform, including logging in.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">5.2 Browser-Specific Instructions</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Chrome:</strong> Settings → Privacy and security → Cookies and other site data</li>
-                <li><strong>Firefox:</strong> Settings → Privacy & Security → Cookies and Site Data</li>
-                <li><strong>Safari:</strong> Preferences → Privacy → Cookies and website data</li>
-                <li><strong>Edge:</strong> Settings → Cookies and site permissions → Cookies and site data</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">6. Cookie Lifespan</h2>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Session cookies:</strong> Deleted when you close your browser</li>
-                <li><strong>Persistent cookies:</strong> Remain on your device for a set period (up to 7 days for authentication)</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">7. Updates to This Policy</h2>
-              <p>
-                We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Please review this page periodically for updates.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">8. Contact Us</h2>
-              <p>
-                If you have questions about our use of cookies, please contact us at:
-              </p>
-              <p className="mt-2">
-                <strong>Email:</strong> privacy@deepfolder.com<br />
-                <strong>Address:</strong> DeepFolder Privacy Team
-              </p>
-            </section>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <LegalPageLayout eyebrow="Cookies" title="Cookie Policy" summary="Genius X1 currently uses only first-party storage needed to secure accounts and preserve user choices.">
+      <section>
+        <h2>1. What this policy covers</h2>
+        <p>Cookies are small data records stored by a browser. Similar technologies, such as local storage, can remember information without sending it automatically with every request. This Policy describes both.</p>
+      </section>
+      <section>
+        <h2>2. Necessary cookies</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[620px] border-collapse text-left text-sm">
+            <thead><tr className="border-b border-slate-300 dark:border-slate-700"><th className="py-3 pr-5">Name</th><th className="py-3 pr-5">Purpose</th><th className="py-3">Typical duration</th></tr></thead>
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr><td className="py-4 pr-5 font-mono text-xs">token</td><td className="py-4 pr-5">Secure, HTTP-only sign-in token used to authenticate account requests.</td><td className="py-4">Up to 7 days</td></tr>
+              <tr><td className="py-4 pr-5 font-mono text-xs">connect.sid</td><td className="py-4 pr-5">Secure, HTTP-only server session used where session state is required.</td><td className="py-4">Up to 24 hours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4">These cookies are used only when needed for the requested service. Blocking them can prevent sign-in or authenticated features from working.</p>
+      </section>
+      <section>
+        <h2>3. Necessary local storage</h2>
+        <p>The browser stores the cookie-notice record, light/dark theme, panel layout, calculation modes, web-search preference, and identifiers needed to reconnect to an active calculation job. These records remain on the device until cleared or replaced. Authentication may also use browser storage in compatibility flows.</p>
+      </section>
+      <section>
+        <h2>4. No advertising or analytics cookies</h2>
+        <p>Genius X1 currently does not use advertising cookies, social-media tracking pixels, cross-site behavioral tracking, or third-party analytics cookies. AI requests are made by the Genius X1 server; the AI provider does not set a browser cookie through this site.</p>
+      </section>
+      <section>
+        <h2>5. Consent and choice</h2>
+        <p>On a first visit, a compact notice explains the necessary storage and records that the notice was acknowledged. Because the current storage is necessary to provide requested functions and no optional tracking is enabled, there is no optional category to accept. If optional analytics, advertising, or similar technologies are introduced, they must remain disabled until the required choice is obtained.</p>
+        <p className="mt-4">You can reopen the notice using “Cookie settings” in the footer. Browser settings can delete or block stored data, but doing so may sign you out, reset preferences, interrupt an active calculation, or cause the notice to reappear.</p>
+      </section>
+      <section>
+        <h2>6. Legal context</h2>
+        <p>Where applicable, necessary storage is used to provide a service requested by the user. Swiss users are informed of the processing and their browser controls. Optional technologies, if added later, will be assessed under applicable consent and opt-out requirements, including EU/EEA ePrivacy and GDPR rules and relevant US state laws.</p>
+      </section>
+      <section>
+        <h2>7. Changes and contact</h2>
+        <p>We update this Policy when storage practices change. Questions can be sent to <a href="mailto:info@deepfolder.ai">info@deepfolder.ai</a>.</p>
+      </section>
+    </LegalPageLayout>
   );
 }

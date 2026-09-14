@@ -21,6 +21,8 @@ interface Props {
   onDiscard: (messageId: string) => void;
   onCreateExample: (messageId: string, example: GeniusCalculationExampleContext) => void;
   readOnly?: boolean;
+  /** Embedded previews can keep the surrounding document anchored. */
+  autoScroll?: boolean;
 }
 
 /**
@@ -124,7 +126,7 @@ function AssistantMessageContent({
   );
 }
 
-export function AgentChat({ messages, busyPhase, webSearch, discardedIds, isBuilding, isBusy, isCreatingExample, exampleCreatedIds, onApprove, onDiscard, onCreateExample, readOnly = false }: Props) {
+export function AgentChat({ messages, busyPhase, webSearch, discardedIds, isBuilding, isBusy, isCreatingExample, exampleCreatedIds, onApprove, onDiscard, onCreateExample, readOnly = false, autoScroll = true }: Props) {
   const endRef = useRef<HTMLDivElement>(null);
   const busyLabel = useBusyLabel(busyPhase, webSearch);
 
@@ -143,8 +145,8 @@ export function AgentChat({ messages, busyPhase, webSearch, discardedIds, isBuil
   }, [latestAssistantIdx]);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (autoScroll) endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [autoScroll, messages]);
 
   return (
     <div className="flex h-full flex-col">

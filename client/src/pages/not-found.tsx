@@ -15,7 +15,7 @@ export default function NotFound() {
             The page you're looking for doesn't exist.
           </p>
           <p className="mt-2 text-xs text-gray-500">
-            <a href="/" className="text-blue-600 hover:underline">Return to Genius<span className="text-blue-500">X1</span></a> to start a new calculation.
+            <a href="/workspace" className="text-blue-600 hover:underline">Return to Genius<span className="text-blue-500">X1</span></a> to start a new calculation.
           </p>
         </CardContent>
       </Card>

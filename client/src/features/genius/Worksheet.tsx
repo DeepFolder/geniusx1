@@ -46,6 +46,8 @@ interface Props {
   isSavingStepComment?: boolean;
   isUpdatingStepComment?: boolean;
   isDeletingStepComment?: boolean;
+  /** Public previews can render the actual worksheet without repeating legal copy. */
+  showDisclaimer?: boolean;
 }
 
 function Section({
@@ -80,7 +82,7 @@ function Section({
   );
 }
 
-export function Worksheet({ doc, onChange, onRecalc, isRecalculating, onExplainStep, isExplaining, readOnly = false, historicalVersion, versions = [], onOpenVersion, onReturnToLatest, isLoadingVersion = false, calculationId, onSaveDetails, isBusy = false, stepComments = [], onAddStepComment, onUpdateStepComment, onDeleteStepComment, isSavingStepComment = false, isUpdatingStepComment = false, isDeletingStepComment = false }: Props) {
+export function Worksheet({ doc, onChange, onRecalc, isRecalculating, onExplainStep, isExplaining, readOnly = false, historicalVersion, versions = [], onOpenVersion, onReturnToLatest, isLoadingVersion = false, calculationId, onSaveDetails, isBusy = false, stepComments = [], onAddStepComment, onUpdateStepComment, onDeleteStepComment, isSavingStepComment = false, isUpdatingStepComment = false, isDeletingStepComment = false, showDisclaimer = true }: Props) {
   const hasExpertSummary = !!doc.expertSummary?.trim();
   const hasConfidence = !!(doc.confidence && doc.confidence.score > 0);
   const hasRecommendations = doc.recommendations && doc.recommendations.length > 0;
@@ -390,7 +392,7 @@ export function Worksheet({ doc, onChange, onRecalc, isRecalculating, onExplainS
 
       {doc.results.length > 0 && (
         <Section id="section-results" title="Results" icon={CheckCircle2} count={doc.results.length}>
-          <ResultsList doc={doc} />
+          <ResultsList doc={doc} showDisclaimer={showDisclaimer} />
         </Section>
       )}
 

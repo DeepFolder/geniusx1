@@ -190,7 +190,7 @@ export default function AuthPage() {
       await queryClient.refetchQueries({ queryKey: ["/api/auth/me"] });
       
       // Navigate to appropriate page
-      const targetUrl = "/";
+      const targetUrl = "/workspace";
       setTimeout(() => {
         window.location.href = targetUrl;
       }, 500);
@@ -227,7 +227,7 @@ export default function AuthPage() {
       }
       toast({ title: "Success", description: "User account created successfully" });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
-      setLocation("/");
+      setLocation("/workspace");
     },
     onError: (error: any) => {
       toast({
@@ -276,7 +276,7 @@ export default function AuthPage() {
       }
       toast({ title: "Success", description: "Company and admin account created successfully" });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
-      setLocation("/");
+      setLocation("/workspace");
     },
     onError: (error: any) => {
       toast({

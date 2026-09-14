@@ -64,7 +64,7 @@ export default function AdminSidebar({ activeTab, onTabChange, isAdmin, newUserC
 
           {/* Back button */}
           <button
-            onClick={() => setLocation("/")}
+            onClick={() => setLocation("/workspace")}
             className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/80 dark:hover:bg-gray-800/70 transition-all group border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform shrink-0" />
@@ -148,7 +148,7 @@ export default function AdminSidebar({ activeTab, onTabChange, isAdmin, newUserC
       <nav className="lg:hidden flex items-center gap-1 px-2 py-2 bg-white dark:bg-gray-900/95 border-b border-gray-200/80 dark:border-gray-800/80 overflow-x-auto shrink-0 shadow-sm">
         {/* Back button — icon only */}
         <button
-          onClick={() => setLocation("/")}
+          onClick={() => setLocation("/workspace")}
           aria-label="Back to GeniusX1"
           className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all mr-1 border border-gray-200 dark:border-gray-700"
         >

@@ -29,6 +29,8 @@ describe("AppSidebar account action", () => {
     const html = renderToStaticMarkup(React.createElement(AppSidebar, { open: true, onClose: () => {} }));
 
     expect(html).toContain('data-testid="button-login"');
+    expect(html).toContain('data-testid="link-nav-home"');
+    expect(html).toContain('href="/workspace"');
     expect(html).toContain("Log in");
     expect(html).not.toContain('data-testid="button-logout"');
     expect(html).not.toContain("Log out");

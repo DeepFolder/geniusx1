@@ -11,7 +11,11 @@ import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import CookiePolicy from "@/pages/cookie-policy";
 import GeniusPage from "@/pages/genius";
+import LandingPage from "@/pages/landing";
+import About from "@/pages/about";
+import LegalNotice from "@/pages/legal-notice";
 import { AppShell } from "@/components/layout/AppShell";
+import CookieConsentBanner from "@/components/legal/cookie-consent-banner";
 import AgentAdminPage from "@/features/hybrid-search/agent-admin";
 import { useEffect } from "react";
 
@@ -23,7 +27,7 @@ function AdminRoute() {
 
   useEffect(() => {
     if (shouldRedirect) {
-      setLocation("/");
+      setLocation("/workspace");
     }
   }, [shouldRedirect, setLocation]);
 
@@ -46,9 +50,9 @@ function AdminRoute() {
   );
 }
 
-// "/" is intentionally public — the workspace renders for guests and gates
-// submission internally via a login modal (see GeniusChatBar).
-const PUBLIC_PATHS = ["/", "/auth", "/login", "/reset-password", "/privacy-policy", "/terms-of-service", "/cookie-policy"];
+// The landing and legal pages are public. The workspace also renders for guests
+// and gates submission internally via a login modal (see GeniusChatBar).
+const PUBLIC_PATHS = ["/", "/workspace", "/about", "/auth", "/login", "/reset-password", "/privacy-policy", "/terms-of-service", "/cookie-policy", "/legal"];
 
 function isPublicPath(path: string) {
   return PUBLIC_PATHS.some((p) => path === p || path.startsWith(p + "/"));
@@ -57,14 +61,17 @@ function isPublicPath(path: string) {
 function Routes() {
   return (
     <Switch>
-      <Route path="/" component={GeniusPage} />
+      <Route path="/" component={LandingPage} />
+      <Route path="/workspace" component={GeniusPage} />
       <Route path="/admin" component={AdminRoute} />
+      <Route path="/about" component={About} />
       <Route path="/auth" component={Auth} />
       <Route path="/login" component={Auth} />
       <Route path="/reset-password" component={ResetPassword} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/cookie-policy" component={CookiePolicy} />
+      <Route path="/legal" component={LegalNotice} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -101,6 +108,7 @@ function App() {
           <AuthGate>
             <Routes />
           </AuthGate>
+          <CookieConsentBanner />
           <Toaster />
         </TooltipProvider>
       </AuthProvider>

@@ -4,6 +4,30 @@ Updated: 2026-09-14.
 
 ## Current status
 
+Unreleased local work adds a modern public homepage at `/`, moves the guest-capable
+calculation interface to `/workspace`, and adds application-specific About,
+Privacy, Terms, Legal, and Cookie pages. A compact first-visit notice records the
+necessary-storage acknowledgement and remains available through “Cookie settings.”
+The homepage uses the same header, wordmark, sidebar, and dark-first theme as the
+calculation workspace; its restrained centered hero follows the established
+DeepFolder visual hierarchy, and its animated ball-screw example renders the real
+Genius chat, worksheet, outline, and prompt components rather than a separate mock.
+Policy links stay in the footer, and the sidebar exposes a
+Home item. The homepage hero reuses the workspace's exact Genius X1 / Engineering
+intelligence empty state. Its fixed-ratio animation follows generation through the
+real input, equation, and result views without changing the page height or scroll
+position. Calculation disclaimers remain in the workspace, Terms, and Legal pages.
+`robots.txt`, `sitemap.xml`, canonical, and social metadata are included. This work
+is verified locally but is not yet on GitHub or the public VPS.
+
+The homepage and all six public/workspace routes rendered in the local browser.
+Consent close/reopen behavior passed, the production build passed, and 27 focused
+public-site/sidebar/theme/workspace tests passed. `git diff --check` passed. The same 292 documented
+TypeScript errors remain; none point to the new public-site files. The normal test
+wrapper refused the older custom local database configuration, so the UI-only
+tests were run directly through the installed Vitest executable without database
+or provider access.
+
 The current live release is `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58`, verified
 on 14 September. All Replit runtime integration is removed: the external banner,
 storage SDK/bucket defaults, domain allowances, reset-link fallback, and old

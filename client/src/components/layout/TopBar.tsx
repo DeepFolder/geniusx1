@@ -19,7 +19,7 @@ export function TopBar({ onToggleSidebar, right, onLogoClick }: Props) {
   const { theme, toggle } = useTheme();
   const isDark = theme === "dark";
   const [location] = useLocation();
-  const isRoot = location === "/";
+  const isWorkspace = location === "/workspace";
 
   const logoInner = <GeniusLogo className="h-4 w-auto transition-opacity group-hover:opacity-80" />;
 
@@ -37,7 +37,7 @@ export function TopBar({ onToggleSidebar, right, onLogoClick }: Props) {
               <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
-            {isRoot ? (
+            {isWorkspace || onLogoClick ? (
               <button
                 type="button"
                 onClick={onLogoClick}
@@ -48,7 +48,7 @@ export function TopBar({ onToggleSidebar, right, onLogoClick }: Props) {
                 {logoInner}
               </button>
             ) : (
-              <Link href="/" className="flex items-center gap-2 group">
+              <Link href="/workspace" className="flex items-center gap-2 group">
                 {logoInner}
               </Link>
             )}

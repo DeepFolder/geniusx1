@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Genius X1 — Engineering Calculations</title>
     <meta name="description" content="Describe an engineering problem in plain language and get a transparent, editable, source-backed calculation with step-by-step working, charts, and confidence scoring." />
+    <link rel="canonical" href="https://geniusx1.com/" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Genius X1" />
+    <meta property="og:title" content="Genius X1 — Reviewable engineering calculations" />
+    <meta property="og:description" content="Turn engineering questions into transparent, editable worksheets with equations, units, computed steps, results, and references." />
+    <meta property="og:url" content="https://geniusx1.com/" />
+    <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <div id="root"></div>
@@ -12,7 +20,7 @@
       // Apply the saved Genius X1 theme before React paints to avoid a flash.
       (function () {
         try {
-          if (localStorage.getItem("genius-theme") === "dark") {
+          if (localStorage.getItem("genius-theme") !== "light") {
             document.documentElement.classList.add("dark");
           }
         } catch (e) {}

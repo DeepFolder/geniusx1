@@ -1,227 +1,83 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LegalPageLayout } from "@/components/legal/legal-page-layout";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="relative min-h-screen modern-4k-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-3xl">Privacy Policy</CardTitle>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-              Last updated: November 8, 2025
-            </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Version 1.1
-            </p>
-          </CardHeader>
-          <CardContent className="prose dark:prose-invert max-w-none space-y-6">
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">1. Controller</h2>
-              <p>
-                <strong>DeepFolder</strong> ("DeepFolder", "we", "our", "us")
-              </p>
-              <p className="mt-2">
-                Registered address: [ADDRESS], [POSTCODE CITY], Switzerland<br />
-                Company ID (CHE): [CHE-NUMBER]<br />
-                Email: privacy@deepfolder.com
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">2. Introduction</h2>
-              <p>
-                We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you use our B2B product-discovery platform. By using DeepFolder, you agree to this Policy.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">3. Information We Collect</h2>
-              
-              <h3 className="text-xl font-semibold mt-6 mb-3">3.1 Personal Information</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Account data:</strong> Name, email, password, company affiliation, position, phone number</li>
-                <li><strong>Profile data:</strong> Photo, bio, headline, LinkedIn URL, skills, experience, education</li>
-                <li><strong>Communications:</strong> Messages, support tickets, and inquiries</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">3.2 Company Data</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Company profiles:</strong> Name, description, industry, location, contact info, certifications</li>
-                <li><strong>Products:</strong> Names, descriptions, specifications, datasheets</li>
-                <li><strong>3D Models:</strong> CAD/STEP files and related uploads</li>
-                <li><strong>Documents:</strong> Catalogs, brochures, certificates, and business materials</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">3.3 Usage Data</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Activity:</strong> Pages viewed, search queries, downloads, follows</li>
-                <li><strong>Interactions:</strong> Likes, favorites, comments, shares</li>
-                <li><strong>AI Interactions:</strong> Questions asked and AI responses</li>
-                <li><strong>Analytics:</strong> Time on platform, navigation patterns</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">3.4 Technical Data</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Device information:</strong> IP, browser, OS, device type</li>
-                <li><strong>Cookies:</strong> For authentication and preferences (see Cookie Policy)</li>
-                <li><strong>Log data:</strong> Access times, error and performance logs</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">4. How We Use Your Information</h2>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Platform operation and maintenance</li>
-                <li>AI features (search, chat, recommendations via OpenAI services)</li>
-                <li>Personalization and recommendations</li>
-                <li>Communication and support</li>
-                <li>Analytics and product improvement</li>
-                <li>Security and fraud prevention</li>
-                <li>Legal compliance and enforcement</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">5. Legal Bases for Processing</h2>
-              <p>We process personal data based on:</p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li><strong>Contract performance:</strong> To operate your account and deliver services</li>
-                <li><strong>Legitimate interests:</strong> To improve functionality and ensure security</li>
-                <li><strong>Consent:</strong> For marketing emails and AI personalization</li>
-                <li><strong>Legal obligations:</strong> To comply with Swiss and EU law</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">6. AI Features and Third-Party Processing</h2>
-              <p>
-                DeepFolder uses OpenAI GPT-4o to enable:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li>Semantic product search</li>
-                <li>AI chat assistant for technical questions</li>
-                <li>Automatic specification extraction from datasheets</li>
-                <li>Recommendation and matching features</li>
-              </ul>
-              <p className="mt-4">
-                Your queries and context (product or company data) may be processed by OpenAI to generate responses. We do not share personal user data beyond what is necessary. See <a href="https://openai.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">OpenAI Privacy Policy</a> for details.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">7. Data Sharing and Disclosure</h2>
-              
-              <h3 className="text-xl font-semibold mt-6 mb-3">7.1 Public Information</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Company profiles and product pages are publicly visible</li>
-                <li>Professional user profiles (if set to public)</li>
-                <li>Posts and updates published by companies</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">7.2 With Your Consent</h3>
-              <p>We share data with third parties only with your explicit consent.</p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">7.3 Service Providers</h3>
-              <p>We use trusted processors for:</p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li>Hostinger VPS hosting, with this application's own PostgreSQL database and file storage</li>
-                <li>AI services (OpenAI)</li>
-                <li>Email and support communication</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">7.4 Legal Requirements</h3>
-              <p>We may disclose information when required by law or to protect rights and safety.</p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">7.5 Sub-Processors</h3>
-              <p>A list of current sub-processors is available at /legal/subprocessors.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">8. Data Storage and Security</h2>
-              <p>
-                We implement appropriate technical and organizational measures:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li>TLS/HTTPS encryption</li>
-                <li>Secure password hashing (bcrypt)</li>
-                <li>Session-based authentication with httpOnly cookies</li>
-                <li>Access controls and role-based permissions</li>
-                <li>Regular security audits and incident logging</li>
-              </ul>
-              <p className="mt-4">
-                Data is stored on secure servers within the EU and Switzerland. When data is transferred outside these regions (e.g. to OpenAI in the US), we rely on Standard Contractual Clauses (Art. 46 GDPR) to ensure adequate protection.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">9. Your Data Rights</h2>
-              <p>You may exercise the following rights under GDPR and nFADP:</p>
-              <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li><strong>Access:</strong> Receive a copy of your data</li>
-                <li><strong>Correction:</strong> Fix inaccurate information</li>
-                <li><strong>Deletion:</strong> Request account and data erasure</li>
-                <li><strong>Restriction:</strong> Limit certain processing</li>
-                <li><strong>Objection:</strong> Object to processing based on legitimate interest</li>
-                <li><strong>Portability:</strong> Export your data (JSON format)</li>
-              </ul>
-              <p className="mt-4">
-                Contact us or use your account settings to exercise these rights.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">10. Data Retention</h2>
-              <p>
-                Personal data is retained while your account is active or as required by law. Upon account deletion, we erase personal data within 30 days, except where legal retention is required.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">11. Children's Privacy</h2>
-              <p>
-                DeepFolder is intended for business professionals. We do not knowingly collect data from individuals under 18.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">12. International Data Transfers</h2>
-              <p>
-                Data may be processed in countries other than your own. We apply appropriate safeguards to maintain equivalent data protection standards.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">13. Changes to This Policy</h2>
-              <p>
-                We may update this Policy as needed. Material changes will be announced on our platform or by email. Continued use after such changes constitutes acceptance.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">14. Jurisdiction</h2>
-              <p>
-                This Privacy Policy is governed by Swiss law. All disputes are subject to the exclusive jurisdiction of the courts of Zug, Switzerland.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mt-8 mb-4">15. Contact</h2>
-              <p>
-                <strong>DeepFolder Privacy Team</strong><br />
-                Email: privacy@deepfolder.com<br />
-                Address: [ADDRESS], [POSTCODE CITY], Switzerland
-              </p>
-            </section>
-
-            <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                Version 1.1 — Published November 8 2025<br />
-                © DeepFolder. All rights reserved.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <LegalPageLayout eyebrow="Privacy" title="Privacy Policy" summary="This notice explains what Genius X1 processes, why it is processed, who may receive it, and the choices available to users.">
+      <section>
+        <h2>1. Controller and contact</h2>
+        <p>Genius X1 is operated by <strong>DeepFolder</strong>, Switzerland. For privacy inquiries or requests, contact <a href="mailto:info@deepfolder.ai">info@deepfolder.ai</a>.</p>
+      </section>
+      <section>
+        <h2>2. Scope</h2>
+        <p>This Policy applies to the public website, user accounts, engineering calculation workspace, attachments, support interactions, and related service logs at geniusx1.com. It does not govern third-party websites reached through links.</p>
+      </section>
+      <section>
+        <h2>3. Information we process</h2>
+        <ul>
+          <li><strong>Account data:</strong> name, email address, password hash, role, approval status, account settings, and authentication records.</li>
+          <li><strong>Calculation content:</strong> prompts, inputs, assumptions, equations, computed steps, results, comments, versions, references, and titles.</li>
+          <li><strong>Files:</strong> images and PDFs you choose to upload, their metadata, extracted text, and generated outputs.</li>
+          <li><strong>AI interaction data:</strong> prompts and relevant context sent to the configured AI provider, plus provider responses and operational metadata.</li>
+          <li><strong>Technical and security data:</strong> IP address, browser and device information, request times, error logs, security events, and cookie or local-storage identifiers.</li>
+          <li><strong>Communications:</strong> messages and information you send when requesting support, exercising rights, or reporting an issue.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>4. Purposes and legal bases</h2>
+        <ul>
+          <li>Provide accounts, calculations, saving, version history, attachments, and support as necessary to perform the service contract.</li>
+          <li>Protect accounts, prevent abuse, diagnose faults, and maintain service integrity based on legitimate interests and legal obligations.</li>
+          <li>Process optional features or communications based on consent where consent is required; consent can be withdrawn prospectively.</li>
+          <li>Comply with lawful requests, enforce terms, establish or defend legal claims, and meet applicable regulatory duties.</li>
+        </ul>
+        <p className="mt-4">Where another legal basis is required in a user’s jurisdiction, processing is limited accordingly.</p>
+      </section>
+      <section>
+        <h2>5. AI processing and confidential information</h2>
+        <p>When an AI feature is used, Genius X1 may send the prompt, selected calculation context, extracted file content, and related instructions to the configured AI service provider. AI responses may be retained with the calculation so the service can display history and support later review.</p>
+        <p className="mt-4"><strong>Do not submit personal data, trade secrets, export-controlled data, classified information, health data, or other restricted content unless you are authorized to do so and have assessed the provider and contractual safeguards.</strong></p>
+      </section>
+      <section>
+        <h2>6. Recipients and processors</h2>
+        <p>Information is disclosed only as needed to operate the service, follow user instructions, protect rights and safety, or comply with law. Current categories include:</p>
+        <ul className="mt-4">
+          <li><strong>Hosting and infrastructure:</strong> Hostinger and related infrastructure providers.</li>
+          <li><strong>AI services:</strong> OpenAI when AI generation, reasoning, embedding, or related features are used.</li>
+          <li><strong>Professional services:</strong> security, legal, accounting, and support providers where necessary and subject to appropriate duties.</li>
+          <li><strong>Authorities or counterparties:</strong> only when legally required or reasonably necessary to protect legal rights and safety.</li>
+        </ul>
+        <p className="mt-4">Genius X1 does not sell personal information or share it for cross-context behavioral advertising.</p>
+      </section>
+      <section>
+        <h2>7. International transfers</h2>
+        <p>Providers may process data outside your country. Where required, transfers rely on an adequacy decision, contractual safeguards such as approved standard contractual clauses, or another lawful transfer mechanism. Contact us for information relevant to a specific service arrangement.</p>
+      </section>
+      <section>
+        <h2>8. Retention</h2>
+        <p>Account and calculation data is retained while the account or service relationship remains active and afterward only as needed for backups, security, dispute resolution, legal obligations, or legitimate business records. Retention depends on the data type and applicable requirements. Deleted data may remain in protected backups until the applicable backup cycle expires.</p>
+      </section>
+      <section>
+        <h2>9. Your rights</h2>
+        <p>Depending on location and applicable law—including the EU/EEA GDPR, UK GDPR, Swiss FADP, or US state privacy laws—you may have rights to request access, correction, deletion, restriction, portability, or objection; withdraw consent; opt out of certain processing; and appeal or complain to a supervisory authority.</p>
+        <p className="mt-4">California residents may also have rights to know, correct, delete, and receive information without discrimination. Because we do not sell personal information or use it for cross-context behavioral advertising, there is currently no sale or advertising-sharing opt-out to exercise.</p>
+        <p className="mt-4">Send requests to <a href="mailto:info@deepfolder.ai">info@deepfolder.ai</a>. We may need to verify identity and authority. Rights may be limited by exceptions in applicable law.</p>
+      </section>
+      <section>
+        <h2>10. Security</h2>
+        <p>We use measures designed to protect data, including HTTPS, access controls, password hashing, restricted server-side credentials, private attachment storage, and backups. No system is completely secure; users should protect credentials and promptly report suspected misuse.</p>
+      </section>
+      <section>
+        <h2>11. Cookies and browser storage</h2>
+        <p>Genius X1 currently uses necessary first-party cookies and local storage for authentication, security, preferences, consent records, and calculation continuity. It does not currently use advertising cookies or third-party analytics cookies. See the <a href="/cookie-policy">Cookie Policy</a>.</p>
+      </section>
+      <section>
+        <h2>12. Children</h2>
+        <p>The service is intended for professional users aged 18 or older. We do not knowingly collect personal information from children. Contact us if you believe a child has submitted information.</p>
+      </section>
+      <section>
+        <h2>13. Changes</h2>
+        <p>We may update this Policy as the service, providers, or laws change. The current version and effective date will be posted here. Material changes will receive additional notice when required.</p>
+      </section>
+    </LegalPageLayout>
   );
 }
