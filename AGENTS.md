@@ -16,7 +16,8 @@ When asked to run the app, do the work:
    settings/accounts are preserved. Custom databases use the manual README path.
 3. Run `npm run dev` in a long-running terminal. It starts the local database and
    hosts UI and API together at **http://localhost:5000**.
-4. Open that URL and verify the Genius X1 workspace. For sign-in use
+4. Verify the public homepage at that URL and the calculation workspace at
+   `http://localhost:5000/workspace`. For sign-in use
    `.local/login.txt`. Never invent or hard-code credentials.
 5. If no `OPENAI_API_KEY` is configured, still run the app and explain that AI
    generation needs a key in `.env` plus a restart. Never fabricate results or

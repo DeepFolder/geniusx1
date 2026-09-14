@@ -17,7 +17,8 @@ npm run setup
 npm run dev
 ```
 
-Open **http://localhost:5000**. UI and API share this port. Port 5173 and
+Open **http://localhost:5000** for the public homepage, or
+**http://localhost:5000/workspace** for calculations. UI and API share this port. Port 5173 and
 `/preview/ComponentName` belonged to the old starter.
 
 The commands work in PowerShell as well as macOS/Linux shells. Native database
@@ -44,7 +45,7 @@ The server returns a clear configuration error until a key is available.
 Model access is also required. Standard mode reads the database settings in
 `server/services/genius-settings.ts`; Expert and PhD use the models defined there.
 A configured key does not prove access to every model. Standard-mode generation
-was verified on the public deployment on 2026-09-13. Expert and PhD remain
+was verified on the public deployment on 2026-09-14. Expert and PhD remain
 unverified. A fresh local checkout still needs its own authorized key.
 
 ## Subsequent runs

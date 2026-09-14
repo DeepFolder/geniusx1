@@ -4,7 +4,8 @@ Updated: 2026-09-14.
 
 ## Current status
 
-Unreleased local work adds a modern public homepage at `/`, moves the guest-capable
+Release `2564a627cf45f114a126425a32f941000a820e49` is live at geniusx1.com,
+verified on 14 September. It adds a public homepage at `/`, moves the guest-capable
 calculation interface to `/workspace`, and adds application-specific About,
 Privacy, Terms, Legal, and Cookie pages. A compact first-visit notice records the
 necessary-storage acknowledgement and remains available through “Cookie settings.”
@@ -18,18 +19,33 @@ intelligence empty state. Its fixed-ratio animation follows generation through t
 real input, equation, and result views without changing the page height or scroll
 position. Calculation disclaimers remain in the workspace, Terms, and Legal pages.
 `robots.txt`, `sitemap.xml`, canonical, and social metadata are included. This work
-is verified locally but is not yet on GitHub or the public VPS.
+was pulled from `origin/main` and deployed from that exact committed source.
 
-The homepage and all six public/workspace routes rendered in the local browser.
-Consent close/reopen behavior passed, the production build passed, and 27 focused
-public-site/sidebar/theme/workspace tests passed. `git diff --check` passed. The same 292 documented
-TypeScript errors remain; none point to the new public-site files. The normal test
-wrapper refused the older custom local database configuration, so the UI-only
-tests were run directly through the installed Vitest executable without database
-or provider access.
+The homepage, workspace, About, Privacy, Terms, Legal, Cookie, and sign-in pages
+were verified on public HTTPS. Cookie acknowledgement survived reload and could
+be reopened. The homepage sign-in link and guest submission gate passed. Browser
+checks found no new runtime or Replit/CSP errors. HTTPS sign-in, private history,
+and one real Standard-mode calculation passed: 20 N became 40 N after editing
+mass, with saved reload and version history verified. Only that synthetic
+calculation was deleted. Private evidence is in `.local/deploy-home-live-evidence.json`.
 
-The current live release is `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58`, verified
-on 14 September. All Replit runtime integration is removed: the external banner,
+Local and Linux production builds passed. The isolated unit run passed 252 checks
+and hit two cold-import timeouts while build/type checks ran in parallel. The
+affected file then passed all 18 checks when rerun alone, covering all 254 unique
+unit checks across both runs. `npm test` used its separate local test database.
+The same 292 TypeScript diagnostics remain, with no additions or removals after
+normalizing shifted line numbers. `git diff --check` passed. No application code
+needed a release fix; full-suite baseline failures remain uninvestigated.
+
+Database and upload backups passed integrity checks before activation. No schema,
+dependency, container configuration, credential, or public-port change was needed.
+Only the Genius X1 app service was recreated; the other hosted app retained its
+image. The previous `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58` image remains
+available for rollback. Daily scheduled backups still exclude upload files and
+remain on this VPS. Expert/PhD, email, and scanned-PDF checks remain outstanding.
+
+The earlier `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58` release was also verified
+on 14 September. Its Replit removal is preserved: the external banner,
 storage SDK/bucket defaults, domain allowances, reset-link fallback, and old
 benchmark destination. Attachments use Genius X1's own private upload volume.
 Calculation history waits for sign-in and is cached separately for each owner.
@@ -40,7 +56,7 @@ has not been independently confirmed. Guest `/api/auth/me` requests still
 correctly return 401. These responses do not indicate a port failure.
 
 HTTPS sign-in, authenticated history, save/recalculation/reload/version history,
-and a real Standard-mode text-PDF upload/proposal passed on the final release.
+and a real Standard-mode text-PDF upload/proposal passed on that earlier release.
 The downloaded PDF matched its original bytes. Guest file access and direct
 access to stored bytes/metadata were rejected. Only the synthetic verification
 calculations and files were removed; the other hosted app retained its image.
@@ -94,8 +110,8 @@ those exact versions were restored, leaving every existing package record intact
 The lock file contained Replit-only download addresses and omitted native
 Windows build packages. Those were repaired without changing the versions of
 existing retained dependencies. Replit development plugins, vendor instructions,
-configuration, and the automatic schema-push hook were removed. Used runtime
-storage integrations remain.
+configuration, and the automatic schema-push hook were removed. Later work
+replaced the remaining runtime storage integration with private local storage.
 
 The setup script creates random database/signing secrets in `.env`, stores its
 database in `.local/postgres`, and writes local account details to

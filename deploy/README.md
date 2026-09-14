@@ -4,10 +4,12 @@ Target: **https://geniusx1.com** on the owner's existing CloudPanel VPS.
 Genius X1 has a separate Docker Compose project, database, network, secrets, and
 upload volume. The other applications on the VPS are outside this deployment.
 
-Latest verified runtime: `43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58` on
-2026-09-14. HTTPS sign-in, saved calculations, and a real Standard-mode text-PDF
-proposal with private file download passed. See `docs/DEPLOYMENT.md` for the
-verification and remaining limits.
+Latest verified runtime: `2564a627cf45f114a126425a32f941000a820e49` on
+2026-09-14. The public homepage, information pages, cookie settings, and workspace
+at `/workspace` passed browser checks. HTTPS sign-in, real Standard-mode generation,
+saved recalculation/reload, and version history passed. Private PDF storage was
+verified on the preceding release and is unchanged. See `docs/DEPLOYMENT.md` for
+the verification and remaining limits.
 
 ## Server layout
 

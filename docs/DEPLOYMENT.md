@@ -9,22 +9,41 @@ modes and scanned-PDF processing still need verification.
 ## Current release
 
 Verified live on 2026-09-14 at **https://geniusx1.com**. The app image is
-`geniusx1:43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58`, built from that committed
+`geniusx1:2564a627cf45f114a126425a32f941000a820e49`, built from that committed
 source and identified by `/api/build-info`. CloudPanel proxies to port 5081 on
 loopback and manages the Let's Encrypt certificate for the apex and `www`.
-The existing other application on the VPS retained its image, port, and healthy
-database connection throughout this deployment.
+The existing other application on the VPS retained its image. Only the Genius X1
+app service was recreated; its database, uploads, credentials, and ports were preserved.
 
-This release removes the remaining Replit runtime integration and stores files
-on the app's own persistent upload volume. A real Standard-mode PDF proposal,
-byte-for-byte download, owner access, guest rejection, and blocked raw-storage
-paths passed over public HTTPS. The existing PDF parser now receives a plain
-byte-array copy instead of a Node Buffer, which fixes compressed-object parsing
-and preserves the original attachment. Scanned-PDF processing still needs a
-separate end-to-end check. The synthetic files and calculations were removed.
-The current app/data readiness and release version were verified after restart.
-No schema migration was required. Pre-release database and upload backups were
-created and checked; daily scheduled backups still cover only the database.
+The new public homepage is at `/`; the calculation workspace is at `/workspace`.
+About, Privacy, Terms, Legal, and Cookie pages, the animated example, sitemap, and
+cookie settings are deployed. Public browser checks covered every new page,
+sign-in navigation, guest submission gating, and cookie close/reopen/persistence.
+No new browser runtime or Replit/CSP errors appeared. The exact live build and
+database readiness passed, followed by secure sign-in, private history, and one
+real Standard-mode calculation. Editing mass changed 20 N to 40 N; saved reload
+and version history passed. Only that synthetic calculation was deleted.
+
+The source archive SHA-256 is
+`0c1723170f3bba92dcf21956e286967bf97ddf5c7a5a00fdbf7b06188b60b0db`.
+The image ID is
+`sha256:5765b02d4e3f6d70168d2e751456986e5e9f1ce51da4bf251dcc1edf269f51f8`.
+The public build timestamp is `2026-09-14T21:50:22Z`. No schema migration or
+dependency/configuration change was required. Fresh database and upload backups
+passed gzip integrity checks before activation; their paths and the previous
+image are recorded inside this release directory. The rollback image is
+`geniusx1:43a3c6d1bea950f6e6ff31f58fe23fbe276bbf58`.
+
+The prior release's Replit removal, private persistent file storage, and PDF parser
+fix are unchanged. Its real text-PDF proposal/download and access-control checks
+remain the latest upload verification; uploads were not retested for this
+frontend-only release. Scanned PDFs still need a separate end-to-end check.
+Daily scheduled backups still cover only the database and remain on this VPS.
+
+Local and Linux builds passed. The 254 unit checks passed across the main run and
+an isolated rerun of a file with two import timeouts under concurrent build load.
+The same 292 TypeScript diagnostics remain. The full suite was not rerun; its
+previously documented failures remain uninvestigated. See `docs/PROJECT.md` for details.
 
 HTTPS login, secure cookies, saving/recalculation/reload/version history, owner
 authentication, and missing-key behavior were tested against the public service.

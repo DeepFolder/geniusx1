@@ -37,7 +37,8 @@ The server performs the numerical calculations.
    PostgreSQL as a normal user. Follow the README if an existing custom database
    is configured.
 
-5. Open http://localhost:5000 and verify the actual Genius X1 workspace and
+5. Open http://localhost:5000 for the public homepage and
+   http://localhost:5000/workspace for calculations. Verify the workspace and
    sign-in using .local/login.txt. Keep credentials private. UI and API share
    port 5000; the old component preview on port 5173 is unrelated.
 
