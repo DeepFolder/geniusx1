@@ -4,7 +4,7 @@ The production target is **https://geniusx1.com** on the owner's CloudPanel VPS.
 Genius X1 uses its own Docker project, PostgreSQL database, secrets, and uploads.
 Read [the VPS operations guide](../deploy/README.md) for exact paths, release
 commands, backups, and rollback. Standard-mode live AI is verified; Expert/PhD
-modes and file-storage portability still need verification.
+modes and scanned-PDF processing still need verification.
 
 ## Current release
 
@@ -72,8 +72,12 @@ take precedence.
 - `APP_URL`, `FRONTEND_URL`, `SITE_URL`: the public HTTPS app origin.
 - `ENABLE_STARTUP_AI_JOBS=false`: safe initial setting. Review legacy product
   indexing/backfill before enabling these paid-provider background jobs.
-- Storage variables and SMTP values in `.env.example`: configure and verify
-  before promising uploads, password resets, or other email-dependent flows.
+- `OBJECT_STORAGE_DIR`: private persistent file directory, default
+  `uploads/.objects`; Compose sets `/app/uploads/.objects` inside the uploads
+  volume. Do not put it in a publicly served directory. File bytes and access
+  policies must be preserved together.
+- SMTP values in `.env.example`: configure and verify before relying on
+  password resets or other email-dependent flows.
 
 Serve behind HTTPS. Production auth cookies require secure connections, so HTTP
 localhost is not a complete production sign-in test. Sessions and some background
@@ -92,10 +96,14 @@ registrations start pending approval. Arrange the initial admin through a review
 one-off database operation, then use account approval. Do not expose a public
 bootstrap endpoint.
 
-Storage retains Replit object-storage calls and a database fallback. Verify
-upload, retrieval, and ownership on the chosen host before enabling uploads.
-Scanned PDF processing also needs native PDF rendering tools. These integrations
-have not been migrated or verified for another host.
+New attachments use the app's local persistent storage, with owner permissions
+and content types stored alongside the bytes in a separate metadata tree. Missing
+metadata denies access. Upload failures return an error instead of falling back
+to publicly accessible database files. Historical database files remain readable;
+the VPS had no stored files when this change was prepared. No database migration
+is required. External bucket data, if any exists in a different installation,
+must be exported with its ownership metadata before switching that installation.
+Scanned PDFs also require native PDF rendering tools and separate verification.
 
 ## Release and rollback
 

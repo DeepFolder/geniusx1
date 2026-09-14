@@ -29,8 +29,6 @@ function hashToken(token: string): string {
 function getBaseUrl(req: express.Request): string {
   const appUrl = process.env.APP_URL || process.env.SITE_URL || process.env.FRONTEND_URL;
   if (appUrl) return appUrl.replace(/\/$/, "");
-  const replitDomain = process.env.REPLIT_DEV_DOMAIN || process.env.REPLIT_DOMAINS?.split(",")[0];
-  if (replitDomain) return `https://${replitDomain}`;
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
   return `${protocol}://${req.get("host")}`;
 }

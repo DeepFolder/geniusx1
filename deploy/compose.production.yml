@@ -34,6 +34,7 @@ services:
       APP_URL: https://geniusx1.com
       FRONTEND_URL: https://geniusx1.com
       SITE_URL: https://geniusx1.com
+      OBJECT_STORAGE_DIR: /app/uploads/.objects
       DATABASE_URL: postgresql://geniusx1:${POSTGRES_PASSWORD}@postgres:5432/geniusx1
       DATABASE_SSL: disable
       SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET}

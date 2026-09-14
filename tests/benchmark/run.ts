@@ -649,9 +649,9 @@ async function main() {
     }
   }
 
-  // Also push to production app so results are visible there too
-  const prodUrl = process.env.BENCHMARK_PRODUCTION_URL ?? 'https://deepfolder.replit.app/api/openai/admin/benchmarks';
-  try {
+  // Publish only when an explicit destination was configured for this run.
+  const prodUrl = process.env.BENCHMARK_PRODUCTION_URL;
+  if (prodUrl) try {
     const pushRes = await fetch(prodUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

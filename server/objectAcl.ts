@@ -1,6 +1,4 @@
-import { Client } from "@replit/object-storage";
-
-const ACL_POLICY_METADATA_KEY = "custom:aclPolicy";
+import { readObjectMetadata, updateLocalObjectPolicy } from "./localObjectStore";
 
 export enum ObjectAccessGroupType {}
 
@@ -26,8 +24,7 @@ export interface ObjectAclPolicy {
 }
 
 /**
- * A lightweight handle for a stored object — replaces the old GCS `File` type.
- * `objectName` is the path within the bucket (no leading slash, no bucket prefix).
+ * A logical path within this application's private filesystem store.
  */
 export interface StoredObject {
   objectName: string;
@@ -61,73 +58,25 @@ function createObjectAccessGroup(
   }
 }
 
-// ─── Sidecar helpers using @replit/object-storage ────────────────────────────
-
-function resolveBucketId(): string {
-  if (process.env.DEFAULT_OBJECT_STORAGE_BUCKET_ID) {
-    return process.env.DEFAULT_OBJECT_STORAGE_BUCKET_ID;
-  }
-  const privateDir =
-    process.env.PRIVATE_OBJECT_DIR ||
-    "/replit-objstore-eace74f0-4d02-472e-9b67-7245c806d91b/.private";
-  const parts = privateDir.split("/").filter(Boolean);
-  if (parts.length > 0) return parts[0];
-  return "replit-objstore-eace74f0-4d02-472e-9b67-7245c806d91b";
-}
-
-function replitClient(): Client {
-  return new Client({ bucketId: resolveBucketId() });
-}
-
-async function writeSidecar(
-  objectName: string,
-  policy: ObjectAclPolicy,
-): Promise<void> {
-  try {
-    const client = replitClient();
-    const sidecarName = `${objectName}.acl.json`;
-    const result = await client.uploadFromText(sidecarName, JSON.stringify(policy));
-    if (!result.ok) {
-      console.warn(`[ACL] writeSidecar error for ${objectName}:`, result.error?.message);
-    }
-  } catch (err) {
-    console.warn("[ACL] writeSidecar error:", (err as Error)?.message);
-  }
-}
-
-async function readSidecar(
-  objectName: string,
-): Promise<ObjectAclPolicy | null> {
-  try {
-    const client = replitClient();
-    const sidecarName = `${objectName}.acl.json`;
-    const result = await client.downloadAsText(sidecarName);
-    if (!result.ok) return null;
-    return JSON.parse(result.value) as ObjectAclPolicy;
-  } catch {
-    return null;
-  }
-}
-
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 /**
- * Sets the ACL policy for an object by writing a JSON sidecar via the Replit SDK.
+ * Updates the access policy beside an existing local object.
  */
 export async function setObjectAclPolicy(
   obj: StoredObject,
   aclPolicy: ObjectAclPolicy,
 ): Promise<void> {
-  await writeSidecar(obj.objectName, aclPolicy);
+  await updateLocalObjectPolicy(obj.objectName, aclPolicy);
 }
 
 /**
- * Gets the ACL policy for an object by reading its JSON sidecar via the Replit SDK.
+ * Missing metadata denies access; an upload is never implicitly public.
  */
 export async function getObjectAclPolicy(
   obj: StoredObject,
 ): Promise<ObjectAclPolicy | null> {
-  return readSidecar(obj.objectName);
+  return (await readObjectMetadata(obj.objectName))?.aclPolicy ?? null;
 }
 
 /**

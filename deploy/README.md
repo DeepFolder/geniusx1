@@ -15,6 +15,16 @@ upload volume. The other applications on the VPS are outside this deployment.
 - CloudPanel site: `geniusx1.com`, site user `geniusx1`, proxy `http://127.0.0.1:5081`.
 - `www.geniusx1.com` redirects to the HTTPS apex domain.
 
+Public visitors use **https://geniusx1.com** without a port suffix. Port 80
+redirects to HTTPS on port 443. The Docker proxy port 5081 is intentionally private.
+A 401 response from `/api/auth/me` means the visitor needs to sign in; it is not
+a port or TLS failure. Guest pages must not fetch private calculation history.
+
+New files use `/app/uploads/.objects` on `geniusx1-uploads`. Data and access
+metadata stay together, and this hidden directory must never be served through
+`/uploads`. The storage adapter requires no external account or bucket. Database
+backups currently exclude this volume; preserve it separately during recovery.
+
 Use the VPS owner's authorized SSH account. Verify the account and server before
 writing: the desktop's global Hostinger connection may belong to another person.
 Do not copy credentials, data, or configuration from another hosted application.

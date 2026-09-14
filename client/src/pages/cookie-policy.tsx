@@ -84,10 +84,9 @@ export default function CookiePolicy() {
             <section>
               <h2 className="text-2xl font-bold mt-8 mb-4">3. Third-Party Cookies</h2>
               <p>
-                We use trusted third-party services that may set their own cookies:
+                AI requests are processed by a server-side service:
               </p>
               <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li><strong>Replit:</strong> For hosting and infrastructure</li>
                 <li><strong>OpenAI:</strong> For AI-powered features (does not set cookies directly through our platform)</li>
               </ul>
               <p className="mt-4">

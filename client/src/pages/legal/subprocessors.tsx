@@ -9,25 +9,11 @@ const subprocessors = [
     dpaLink: "https://openai.com/policies/data-processing-addendum",
   },
   {
-    name: "Neon (Neon Inc.)",
-    country: "EU (AWS eu-central-1)",
-    dataCategory: "All structured platform data — user accounts, company profiles, products, sessions",
-    purpose: "PostgreSQL database hosting",
-    dpaLink: "https://neon.tech/privacy",
-  },
-  {
-    name: "Google Cloud Storage",
-    country: "EU (europe-west1)",
-    dataCategory: "Uploaded files — product images, datasheets, 3D models, company documents",
-    purpose: "Object / file storage",
-    dpaLink: "https://cloud.google.com/terms/data-processing-addendum",
-  },
-  {
-    name: "Replit (Replit, Inc.)",
-    country: "USA",
-    dataCategory: "Application runtime data — logs, environment variables, compute",
-    purpose: "Application hosting and compute infrastructure",
-    dpaLink: "https://replit.com/privacy",
+    name: "Hostinger",
+    country: "Deployment-specific server location",
+    dataCategory: "Application runtime, account and calculation data, and uploaded files",
+    purpose: "VPS hosting for the application, its PostgreSQL database, and private file storage",
+    dpaLink: "https://www.hostinger.com/legal/privacy-policy",
   },
   {
     name: "Email provider (SMTP / transactional)",
@@ -45,7 +31,7 @@ export default function SubprocessorList() {
         <Card>
           <CardHeader>
             <CardTitle className="text-3xl">Sub-Processor List</CardTitle>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Last updated: June 13, 2026</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Last updated: September 14, 2026</p>
           </CardHeader>
           <CardContent className="space-y-6">
             <p className="text-gray-700 dark:text-gray-300">
@@ -92,7 +78,7 @@ export default function SubprocessorList() {
             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
               <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-1">Changelog</h3>
               <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-                <li><strong>June 13, 2026</strong> — Initial publication. Listed sub-processors: OpenAI, Neon, Google Cloud Storage, Replit.</li>
+                <li><strong>September 14, 2026</strong> — Hosting, database, and file storage use the application's own Hostinger VPS deployment.</li>
               </ul>
             </div>
 

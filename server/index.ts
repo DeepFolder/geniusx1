@@ -109,10 +109,6 @@ const apiLimiter = rateLimit({
 
 // CORS configuration with origin whitelist
 const allowedOrigins = [
-  process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : null,
-  process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co` : null,
-  // REPLIT_DOMAINS covers all domains in production deployments (e.g. deepfolder.replit.app)
-  ...(process.env.REPLIT_DOMAINS ? process.env.REPLIT_DOMAINS.split(',').map(d => `https://${d.trim()}`) : []),
   toOrigin(process.env.APP_URL),
   toOrigin(process.env.FRONTEND_URL),
   toOrigin(process.env.SITE_URL),

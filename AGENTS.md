@@ -48,13 +48,17 @@ scoped to the authenticated owner.
 - `scripts/setup-local.mjs`, `scripts/local-database.mjs`, `scripts/run.mjs`:
   portable local setup and startup.
 - `scripts/test.mjs`: isolated database test runner.
-- `server/objectStorage.ts`, `server/objectAcl.ts`: storage/access control.
+- `server/objectStorage.ts`, `server/objectAcl.ts`, `server/localObjectStore.ts`:
+  local persistent file storage and access control.
 - `tests/`: unit, integration, E2E, and benchmark suites.
 
 Legacy DeepFolder company/product/search modules remain in the backend import
 graph. Most have no active frontend route. Trace callers before removing them or
-describing them as current features. Storage still uses the original provider
-integration; deleting its dependencies alone breaks file handling.
+describing them as current features. Attachments use this application's own
+filesystem, defaulting to `uploads/.objects` and the private Docker upload volume.
+Keep that directory off static routes and preserve owner checks and metadata.
+Historical database-backed files remain readable. No Replit SDK, script, bucket,
+domain allowance, or external upload fallback is used.
 
 ## Engineering rules
 

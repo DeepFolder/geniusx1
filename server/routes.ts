@@ -2009,7 +2009,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     next();
   });
   
-  app.use("/uploads", express.static(uploadDir));
+  // Object bytes and access policies live in .objects and must only be served
+  // through the permission-checked /objects endpoint.
+  app.use("/uploads/.objects", (_req, res) => { res.sendStatus(404); });
+  app.use("/uploads", express.static(uploadDir, { dotfiles: "deny" }));
 
   // Mount unified AI routes
   app.use("/api/ai", aiRoutes);
@@ -5814,8 +5817,7 @@ function generateProductChatFallback(message: string, productContext: any): stri
   // requireAuth is intentionally NOT used here so public-ACL files (e.g. product images)
   // can be retrieved without a login. userId is resolved from session first, then JWT,
   // and passed into canAccessObjectEntity which enforces ownership/ACL rules for private
-  // Serve files stored in the database fallback (used when object-storage
-  // sidecar cannot issue GCS tokens in the deployed environment).
+  // Keep reads of historical database-backed public files compatible.
   app.get("/api/files/:id", async (req, res) => {
     await serveDbFile(req.params.id, res);
   });

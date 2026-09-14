@@ -124,7 +124,7 @@ export default function PrivacyPolicy() {
               <h3 className="text-xl font-semibold mt-6 mb-3">7.3 Service Providers</h3>
               <p>We use trusted processors for:</p>
               <ul className="list-disc pl-6 space-y-2 mt-2">
-                <li>Hosting (Replit) and database (Neon Database)</li>
+                <li>Hostinger VPS hosting, with this application's own PostgreSQL database and file storage</li>
                 <li>AI services (OpenAI)</li>
                 <li>Email and support communication</li>
               </ul>

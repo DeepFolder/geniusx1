@@ -1,8 +1,17 @@
 # Genius X1 project record
 
-Updated: 2026-09-13.
+Updated: 2026-09-14.
 
 ## Current status
+
+The 14 September access investigation verified public HTTP redirects to HTTPS,
+the correct DNS address, open web ports, and healthy app/database containers.
+The reported console error came from a leftover development banner, while the
+401 responses were requests made before sign-in. The prepared fix removes all
+remaining Replit runtime integration, uses the app's own private persistent file
+storage, and waits for authentication before fetching owner-specific history.
+The local production build and 267 unit/fixture checks passed; the same 292
+baseline TypeScript errors remain. Production rollout is pending verification.
 
 The application is live at **https://geniusx1.com**, using its own Docker app,
 PostgreSQL database, network, secrets, and uploads on the owner's CloudPanel VPS.

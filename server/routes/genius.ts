@@ -1299,7 +1299,7 @@ router.post("/upload", requireAI, (req: any, res) => {
         imageDataUrl = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
       }
 
-      // 2) Store the bytes (object storage with DB fallback).
+      // 2) Persist the attachment on this app's private storage volume.
       let url = "";
       try {
         const storage = new ObjectStorageService();
@@ -1311,7 +1311,10 @@ router.post("/upload", requireAI, (req: any, res) => {
           { owner: req.user.id, visibility: "private" },
         );
       } catch (storageErr: any) {
-        console.warn("[genius] attachment storage failed (continuing):", storageErr?.message);
+        finishTracking(requestId, 0);
+        console.error("[genius] attachment storage failed:", storageErr?.message);
+        res.status(503).json({ error: "Could not save the attachment. Please try again." });
+        return;
       }
 
       const attachment: GeniusAttachment = {

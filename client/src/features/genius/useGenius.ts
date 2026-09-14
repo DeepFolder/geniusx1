@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   generateCalc,
   messageCalc,
@@ -87,6 +88,7 @@ function nextMsgId(): string {
 
 export function useGenius() {
   const queryClient = useQueryClient();
+  const { user, isAuthenticated } = useAuth();
   const [calcId, setCalcId] = useState<number | null>(null);
   const calcIdRef = useRef<number | null>(null);
   calcIdRef.current = calcId;
@@ -145,11 +147,14 @@ export function useGenius() {
     });
   }, [expertMode]);
 
-  const { data: history = [] } = useQuery<GeniusListItem[]>({ queryKey: ["/api/genius"] });
+  const { data: history = [] } = useQuery<GeniusListItem[]>({
+    queryKey: ["/api/genius", { owner: user?.id }],
+    enabled: isAuthenticated,
+  });
   const { data: versions = [] } = useQuery<GeniusCalculationVersion[]>({
     queryKey: ["/api/genius", calcId, "versions"],
     queryFn: () => getCalculationVersions(calcId!),
-    enabled: calcId != null,
+    enabled: isAuthenticated && calcId != null,
   });
 
   /**

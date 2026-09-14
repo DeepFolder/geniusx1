@@ -143,7 +143,7 @@ async function fetchWithManualRedirects(
       redirect: 'manual',
       signal,
       headers: {
-        'User-Agent': 'DeepFolderBot/1.0 (+https://deepfolder.replit.app)',
+        'User-Agent': 'GeniusX1Bot/1.0 (+https://geniusx1.com)',
         'Accept': 'application/pdf,*/*;q=0.8',
       },
     });
