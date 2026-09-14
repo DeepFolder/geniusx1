@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import { createLazyOpenAI } from "./openai-client.js";
 import fs from "fs";
 import path from "path";
+import { parsePdfBuffer } from "./pdf-parser.js";
 
 // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
 const openai = createLazyOpenAI();
@@ -18,8 +19,7 @@ export interface SpecificationSummary {
  */
 export async function extractPdfTextFromBuffer(buf: Buffer): Promise<string> {
   try {
-    const pdfParse = (await import('pdf-parse')).default;
-    const pdfData = await pdfParse(buf);
+    const pdfData = await parsePdfBuffer(buf);
     if (!pdfData.text || pdfData.text.trim().length === 0) {
       throw new Error('PDF contains no extractable text');
     }

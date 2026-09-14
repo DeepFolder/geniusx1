@@ -44,6 +44,7 @@ import {
 } from "../services/genius-versions.js";
 import { extractPdfTextFromBuffer } from "../services/datasheet-summarizer.js";
 import { ObjectStorageService } from "../objectStorage.js";
+import { parsePdfBuffer } from "../services/pdf-parser.js";
 import {
   startTracking,
   trackApiCall,
@@ -1262,8 +1263,7 @@ router.post("/upload", requireAI, (req: any, res) => {
             // Determine actual page count so we never request non-existent pages.
             let actualPageCount = MAX_SCANNED_PDF_PAGES;
             try {
-              const pdfParse = (await import("pdf-parse")).default;
-              const meta = await pdfParse(file.buffer, { max: 0 } as any);
+              const meta = await parsePdfBuffer(file.buffer, { max: 0 });
               if (meta.numpages > 0) actualPageCount = meta.numpages;
             } catch {
               // Ignore — fall back to the configured cap.
